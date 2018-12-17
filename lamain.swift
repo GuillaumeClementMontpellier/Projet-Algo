@@ -34,11 +34,13 @@ class main : mainProtocol {
         while (i < self.liste.count and !fait){
 
             if self.liste[i].roleCarte() == c {
-                fait = true
-                
-            }
-            
 
+                //TODO
+                
+                
+                fait = true
+            }            
+            i+=1
         }
     }
 
