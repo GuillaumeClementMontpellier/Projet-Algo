@@ -88,5 +88,6 @@ class carte : carteProtocol {
         }
     }
 
+    func changerPosition (p : position)
     
 }
