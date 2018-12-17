@@ -124,9 +124,20 @@ class carte : carteProtocol {
 
     // Peut attaquer et capturer
 
-    func cdb () -> champs_de_bataille{
-
+    func cdb () -> champs_de_bataille? {
+        return self.cdb
     }
 
+    func royaume () -> royaume? {
+        return self.roy
+    }
+    
+    func main () -> main? {
+        return self.hand
+    }
+
+    func joueur () -> Int {
+        return self.joueur
+    }
     
 }
