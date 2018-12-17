@@ -55,6 +55,8 @@ class carte : carteProtocol {
 
     var role : String
 
+    var ptDegat : [Int]
+
     init?(role : String, joueur : int){
         //verifie les préconditions
         if joueur != 1 and joueur != 2 {
@@ -69,6 +71,7 @@ class carte : carteProtocol {
         self.role = role
         self.joueur = joueur
         self.mode = true
+        self.ptDegat = [0]
         
     }
 
@@ -87,7 +90,43 @@ class carte : carteProtocol {
             throw Erreur
         }
     }
+    
+    func changerPosition (p : position){
+        self.pos = p
+    }
+    
+    func valeurAttaque() -> Int{
+        return self.att
+    }
+    
+    func valeurDefense() -> Int{
+        return self.def
+    }
+    
+    func pointDegat(t : Int) -> Int {
+        
+        while (t >= self.ptDegat.count){
+            self.ptDegat.append(0)
+        }
+        
+        return self.ptDegat[t]
+        
+    }
+    
+    func ajoutPointDegat(d : Int, t : Int){
+        var a : Int = pointDegat(t : t)
+        self.ptDegat[t] = a + d
+    }
 
-    func changerPosition (p : position)
+    func roleCarte() -> String {
+        return self.role
+    }
+
+    // Peut attaquer et capturer
+
+    func cdb () -> champs_de_bataille{
+
+    }
+
     
 }
