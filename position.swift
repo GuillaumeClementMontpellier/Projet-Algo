@@ -2,6 +2,7 @@ class position : positionProtocol {
     
     typealias carte = carteProtocol
     typealias champs_de_bataille = champsdebatailleProtocol
+    typealias ItRoyaume = IteratorProtocol
 
     var nomPos : String
     var cdb : champs_de_bataille
