@@ -6,14 +6,14 @@ class carte : carteProtocol {
     typealias main = mainProtocol
     typealias position = positionProtocol
 
-    private var cdb : champs_de_bataille?
-    private var roy : royaume?
-    private var hand : main?
-    private var pos : position?
+    var cdb : champs_de_bataille?
+    var roy : royaume?
+    var hand : main?
+    var pos : position?
 
-    private var mode : Bool // true si la carte est offensive, false sinon
+    var mode : Bool // true si la carte est offensive, false sinon
     
-    private var att : Int{ //valeur d'attaque
+    var att : Int{ //valeur d'attaque
         get{
             if self.role == "Soldat"{
                 throw Erreur // pas de moyen d'acceder au nbr de cartes dans la main du joueur
@@ -23,7 +23,7 @@ class carte : carteProtocol {
         }
     }
     
-    private var def : Int{ //valeur de defense
+    var def : Int{ //valeur de defense
         get{
             if self.mode {
                 switch self.role{
@@ -51,9 +51,9 @@ class carte : carteProtocol {
         }
     }
     
-    private var joueur : int
+    var joueur : int
 
-    private var role : String
+    var role : String
 
     init?(role : String, joueur : int){
         //verifie les préconditions
@@ -68,7 +68,24 @@ class carte : carteProtocol {
 
         self.role = role
         self.joueur = joueur
+        self.mode = true
         
+    }
+
+    func changerMode(){
+        self.mode = !(self.mode)
+    }
+
+    func estOffensive() -> Bool{
+        return self.mode
+    }
+
+    func position()-> position {
+        if let pos = self.pos {
+            return pos
+        }else {
+            throw Erreur
+        }
     }
 
     

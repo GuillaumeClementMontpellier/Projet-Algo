@@ -19,24 +19,24 @@ associatedtype positionProtocol
 	//	   : joueur correspond au numéro du joueur : 1 ou 2 (servira uniquement pour differencier les deux Roi (lors de leur création dans le type Main et pour savoir à quel joueur appartient la carte))
 	//	   : par default le mode de la carte s'initialise defensive car lorque une carte est posé sur le terrain est elle en mode defensive
 	// sinon la creation échoue (renvoie Vide)
-	init?(role : String, joueur : Int)
+	 init?(role : String, joueur : Int)
 
 	// changerMode : Carte ->
 	// fonction changeant le mode de jeu de la carte : de défensive a offensive OU de offensive a defensive
 	// Pre : c doit être de type Carte 
 	// Post : le mode de la carte doit avoir changé
-	mutating func changerMode()  
+	 mutating func changerMode()  
 
 	// estOffensive : Carte -> Bool
 	// fonction retournant true si la Carte est en postion Offensive, false sinon
 	// Pre : c doit être de type Carte 
-	func estOffensive() -> Bool  
+	 func estOffensive() -> Bool  
 
 	// position : Carte -> Position
 	// fonction retourant la position d'une carte sur le champs de bataille
 	// Pre : c doit etre une carte et cette carte doit etre sur le champs de bataille
 	// Resultat : la position est renvoyé sous forme : F1, ... , A3 
-	func position() -> positionProtocol
+	 func position() -> positionProtocol
 
 	// changerPosition : Carte x Position ->
 	// fonction changeant la postion(placement sur le champs de bataille) de la Carte c
