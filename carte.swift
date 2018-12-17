@@ -51,7 +51,7 @@ class carte : carteProtocol {
         }
     }
     
-    var joueur : int
+    var joueur : Int
 
     var role : String
 
@@ -122,7 +122,7 @@ class carte : carteProtocol {
         return self.role
     }
 
-    // Peut attaquer et capturer
+    // PeutAttaquer et capturer
 
     func cdb () -> champs_de_bataille? {
         return self.cdb
