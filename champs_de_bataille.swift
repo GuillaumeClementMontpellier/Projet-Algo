@@ -16,7 +16,7 @@ class champs_de_bataille : champsdebatailleProtocol {
         
     mutating func ajouterUneCarte(p : position, c : carte){
         //vérifie si dans la carte est dans la main du joueur
-        if let m = c.main() and m.joueur() == self.proprietaire{
+        if let m = c.main() && c.joueur() == self.proprietaire{
             
             //vérfie si il y a déjà une carte sur la position
             if let c = p.carte(){
@@ -38,19 +38,19 @@ class champs_de_bataille : champsdebatailleProtocol {
     }
 
     mutating func avancerCarte(p : position){
-        if self.estVidePosition(p : p) and p.front(){
+        if self.estVidePosition(p : p) && p.front(){
             if (p.nom() == "F1"){
-                if let (carte = self.champ[3].carte(){
+                if let carte = self.champ[3].carte(){
                     carte.pos = p
                 }
             }
             else if (p.nom() == "F2"){
-                if let (carte = self.champ[4].carte()){
+                if let carte = self.champ[4].carte(){
                      carte.pos = p
                 }
             }
                  else if (p.nom() == "F3"){
-                     if let (carte = self.champ[5].carte()){
+                     if let carte = self.champ[5].carte(){
                          carte.pos = p
                      }
                  }
@@ -61,7 +61,7 @@ class champs_de_bataille : champsdebatailleProtocol {
     func estVide() -> Bool{
         var b : Bool = True
         var cpt : Int = 0
-        while (b and cpt<6){
+        while (b && cpt<6){
             b = estVidePosition(p : self.champ[cpt])
         }
         return b
