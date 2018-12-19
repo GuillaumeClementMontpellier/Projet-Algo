@@ -192,9 +192,16 @@ class carte : carteProtocol {
     func peutAttaquer(c : carte) -> Bool{
         if !self.estOffensive(){
             return false
-        } else { //
-            for i in self
+        } else {
+            var s = self.attaque
+            var rep :Bool = false
+            for nom in s {
+                if nom == c.pos.nom() {
+                    rep = true
+                }
+            }
             
+            return rep
         }
     }
     
