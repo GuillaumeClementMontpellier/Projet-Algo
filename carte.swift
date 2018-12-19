@@ -205,7 +205,7 @@ class carte : carteProtocol {
         }
     }
     
-    func capturerCarte(attaquant : carte){
+    func capturerCarte(attaquant : carte){ //still to do
     
     }
 
