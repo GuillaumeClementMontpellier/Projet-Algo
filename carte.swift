@@ -57,7 +57,71 @@ class carte : carteProtocol {
 
     var ptDegat : [Int]
     
-    var attaque : [String]
+    var portee : [String]{
+    
+        get{
+            var rep : [String] = []
+            
+            switch self.role {
+                
+            case "Roi":
+                if self.pos.arriere(){
+                    if self.joueur == 1{
+                        if self.pos.nom() == "A1" {
+                            rep.append("F1")
+                        }else if self.pos.nom() == "A2"{
+                            rep.append("F2")
+                        } else { // en A3
+                            rep.append("F3")
+                        }
+                    }
+                }else{ // au front
+                    self.append("F1")
+                    self.append("F2")
+                    self.append("F3")
+                    if self.joueur == 1{
+                        if self.pos.nom() == "F1" {
+                            rep.append("A1")
+                        }else if self.pos.nom() == "F2"{
+                            rep.append("A2")
+                        } else { // en F3
+                            rep.append("A3")
+                        }
+                    }
+                }
+            case "Archer":
+                switch self.pos.nom() {
+                case "F1":
+                    rep.append("A2")
+                    rep.append("F3")
+                case "F2":
+                    rep.append("A1")
+                    rep.append("A3")
+                case "F3":
+                    rep.append("F1")
+                    rep.append("A2")
+                case "A2":
+                    rep.append("F1")
+                    rep.append("F3")
+                default: // A1 ou A3 (même chose)
+                    rep.append("F2")
+                }
+                
+            default: // soldat ou Garde
+                if self.pos.front(){
+                    if self.pos.nom() == "F1"{
+                        rep.append("F1")
+                    } else if self.pos.nom() == "F2"{
+                        rep.append("F2")
+                    } else { // en F3
+                        rep.append("F3")
+                    }
+                }
+                
+            }
+            return rep
+        }
+    }
 
     init?(role : String, joueur : int){
         //verifie les préconditions
@@ -128,13 +192,9 @@ class carte : carteProtocol {
     func peutAttaquer(c : carte) -> Bool{
         if !self.estOffensive(){
             return false
-        } else {
-            switch <#value#> {
-            case <#pattern#>:
-                <#code#>
-            default:
-                <#code#>
-            }
+        } else { //
+            for i in self
+            
         }
     }
     
