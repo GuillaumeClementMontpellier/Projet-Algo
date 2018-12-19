@@ -1,6 +1,6 @@
 
 
-protocol pioche : piocheProtocol {
+class pioche : piocheProtocol {
 
     typealias main = mainProtocol
 
@@ -25,7 +25,7 @@ protocol pioche : piocheProtocol {
         self.liste.shuffle()
     }
 
-    //piocher a faire (pour le royaume et pour la main)
+    //piocher a faire (pour le royaume puis pour la main)
 
     func nbCartePioche() -> Int {
         return self.liste.count

@@ -56,14 +56,16 @@ class carte : carteProtocol {
     var role : String
 
     var ptDegat : [Int]
+    
+    var attaque : [String]
 
     init?(role : String, joueur : int){
         //verifie les préconditions
-        if joueur != 1 and joueur != 2 {
+        if joueur != 1 && joueur != 2 {
             return nil
         }
         // verifie les preconditions 2
-        if role != "Archer" and role != "Garde" and role != "Roi" and role != "Soldat" {
+        if role != "Archer" && role != "Garde" && role != "Roi" && role != "Soldat" {
             return nil
         }
         // init()
@@ -123,6 +125,22 @@ class carte : carteProtocol {
     }
 
     // PeutAttaquer et capturer
+    func peutAttaquer(c : carte) -> Bool{
+        if !self.estOffensive(){
+            return false
+        } else {
+            switch <#value#> {
+            case <#pattern#>:
+                <#code#>
+            default:
+                <#code#>
+            }
+        }
+    }
+    
+    func capturerCarte(attaquant : carte){
+    
+    }
 
     func cdb () -> champs_de_bataille? {
         return self.cdb

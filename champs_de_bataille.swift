@@ -7,6 +7,7 @@ class champs_de_bataille : champsdebatailleProtocol {
     var champ : [position]
     var proprietaire  : Int
     var roy : royaume //Royaume du joueur possédant le champ de bataille
+    var main : main // la main du joueur qui possede le champ de bataille
     
     init(){
         

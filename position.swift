@@ -42,5 +42,5 @@ class position : positionProtocol {
         return self.cdb
     }
           
-        
+}
     
