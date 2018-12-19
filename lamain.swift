@@ -8,9 +8,11 @@ class main : mainProtocol {
 
     var liste : [carte]
     
+    var champ : champs_de_bataille
+    
     init?(num : Int){
-
-        if num != 1 and num != 2 {
+        
+        if num != 1 && num != 2 {
             return nil
         }
         
@@ -30,13 +32,20 @@ class main : mainProtocol {
 	// pré : il faut que le joueur ai la carte dans sa main 
 	// pré : il faut que le String corresponde a un role d'une carte (Archer, soldat ....)
         var i : Int = 0
-        var fait : Bool : false
-        while (i < self.liste.count and !fait){
+        var fait : Bool = false // pour verifier qu'on ne pose qu'une carte
+        while (i < self.liste.count && !fait){
 
             if self.liste[i].roleCarte() == c {
-
-                //TODO
                 
+                var b : bool = true // pour verifier qu'on ne pose la carte qu'une fois
+
+                for p in cdb.champ {
+                    if p == pos && b{
+                        p.carte = self.liste[i]
+                        self.liste.remove(at : i)
+                        b = false
+                    }
+                }
                 
                 fait = true
             }            
@@ -49,6 +58,13 @@ class main : mainProtocol {
     }
 
     //ajouterCarteMain a faire
+    func ajouterCartemain(c : carte){
+    
+        c.pos.carte = nil
+        c.pos = nil
+        self.liste.append(c)
+    
+    }
         
 
     func avoirMain(r : String){
