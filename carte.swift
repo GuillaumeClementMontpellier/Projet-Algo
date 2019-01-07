@@ -37,7 +37,7 @@ class carte : carteProtocol {
             } else {
                 switch self.role{
                 case "Roi" :
-                    if self.joueur == 1{
+                    if self.joeur == 1{
                         return 4
                     } else {
                         return 5
@@ -51,7 +51,7 @@ class carte : carteProtocol {
         }
     }
     
-    var joueur : Int
+    var joeur : Int
 
     var role : String
 
@@ -66,7 +66,7 @@ class carte : carteProtocol {
                 
             case "Roi":
                 if self.pos.arriere(){
-                    if self.joueur == 1{
+                    if self.joeur == 1{
                         if self.pos.nom() == "A1" {
                             rep.append("F1")
                         }else if self.pos.nom() == "A2"{
@@ -79,7 +79,7 @@ class carte : carteProtocol {
                     self.append("F1")
                     self.append("F2")
                     self.append("F3")
-                    if self.joueur == 1{
+                    if self.joeur == 1{
                         if self.pos.nom() == "F1" {
                             rep.append("A1")
                         }else if self.pos.nom() == "F2"{
@@ -135,7 +135,7 @@ class carte : carteProtocol {
         // init()
 
         self.role = role
-        self.joueur = joueur
+        self.joeur = joueur
         self.mode = true
         self.ptDegat = [0]
         
@@ -206,7 +206,15 @@ class carte : carteProtocol {
     }
     
     func capturerCarte(attaquant : carte){ //still to do
-    
+    	self.joeur = attaquant.joueur()
+
+    	if let cdb = attaquant.cdb{
+    		self.cdb = nil
+    		self.pos.carte = nil
+    		self.pos = nil
+    		self.roy = cdb.roy
+    		cdb.roy.listeCartes.append(self)
+    	}
     }
 
     func cdb () -> champs_de_bataille? {

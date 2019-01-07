@@ -12,7 +12,7 @@ class champs_de_bataille : champsdebatailleProtocol {
     init(){
         
         self.champ = [position(n : "A1", cdb : self),  position(n : "A2", cdb : self), position(n : "A3", cdb : self), position(n : "F1", cdb : self), position(n : "F2", cdb : self), position(n : "F3", cdb : self)]
-        
+        //init du royaume ? de la main ?
     }
         
     mutating func ajouterUneCarte(p : position, c : carte){

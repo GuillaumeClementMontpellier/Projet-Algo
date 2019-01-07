@@ -14,7 +14,7 @@ class royaume : royaumeProtocol {
         return ItRoyaume(self)
     }
 
-    mutating func envoyerCarte(c : String, m : main){
+    mutating func envoyerCarte(c : carte, m : main){
         c.hand=nil
         c.roy=self
         self.listeCartes.append(c)
