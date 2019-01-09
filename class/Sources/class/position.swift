@@ -5,17 +5,17 @@ import Foundation
 
 class position : positionProtocol {
     
-    typealias carte = carteProtocol
-    typealias champs_de_bataille = champsdebatailleProtocol
-    typealias ItRoyaume = IteratorProtocol
+associatedtype carteProtocol = carte
+associatedtype champsdebatailleProtocol = champs_de_bataille
+    
 
     var nomPos : String
-    var cdb : champs_de_bataille
-    var carte : carte?
+    var cddb : champs_de_bataille
+    var cartee : carte?
 
     init(n : String, cdb : champs_de_bataille){
         self.nomPos = n
-        self.cdb = cdb
+        self.cddb = cdb
     }
 
     func estVide() -> Bool{
@@ -28,11 +28,11 @@ class position : positionProtocol {
     }
 
     func nom() -> String{
-        return this.nomPos
+        return self.nomPos
     }
 
     func carte() -> carte?{
-        return self.carte
+        return self.cartee
     }
 
     func front() -> Bool{
@@ -44,7 +44,7 @@ class position : positionProtocol {
     }
 
     func cdb() -> champs_de_bataille{
-        return self.cdb
+        return self.cddb
     }
           
 }

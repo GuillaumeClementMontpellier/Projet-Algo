@@ -4,8 +4,9 @@ import prot
 import Foundation
 
 class pioche : piocheProtocol {
-
-    typealias main = mainProtocol
+    
+    associatedtype mainProtocol = main
+    associatedtype royaumeProtocol = royaume
 
     var liste : [carte]
 
@@ -14,15 +15,15 @@ class pioche : piocheProtocol {
         self.liste = []
         
         for i in 1...9{
-            self.liste.append(carte(nom : "Soldat", joueur : j))
+            self.liste.append(carte(role : "Soldat", joueur : j))
         }
 
         for i in 1...6{
-            self.liste.append(carte(nom : "Garde", joueur : j))
+            self.liste.append(carte(role : "Garde", joueur : j))
         }
 
         for i in 1...5{
-            self.liste.append(carte(nom : "Archer", joueur : j))
+            self.liste.append(carte(role : "Archer", joueur : j))
         }
 
         self.liste.shuffle()
@@ -35,7 +36,7 @@ class pioche : piocheProtocol {
     }
 
     func estVidePioche() -> Bool {
-        return nbCartePioche == 0
+        return nbCartePioche() == 0
     }
 
     

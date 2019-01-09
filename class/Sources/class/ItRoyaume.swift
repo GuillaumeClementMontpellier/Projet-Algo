@@ -3,24 +3,27 @@ import prot
 
 import Foundation
 
-class ItRoyaume : IteratorProtocol {
+class Itroyaume : ItRoyaume {
     
-    typealias royaume = royaumeProtocol
+
+    associatedtype royaumeProtocol = royaume
+    associatedtype carteProtocol = carte
     
-    var roy : Royaume
+    
+    var roy : royaume
     var courant : Int
     
-    init(r : royaume){
+    required init(r : royaume){
         self.roy = r
         self.courant = 0
     }
     
-    mutating func next() -> carte?{
+    func next() -> carte?{
         if self.courant>self.roy.listeCartes.count{
             return nil
         }
         else{
-            var x : Int = self.courant
+            let x : Int = self.courant
             self.courant = self.courant + 1
             return self.roy.listeCartes[x]
             }

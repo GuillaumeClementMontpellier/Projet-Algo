@@ -4,10 +4,10 @@ import prot
 import Foundation
 
 class main : mainProtocol {
-
-    typealias champs_de_bataille = champdebatailleProtocol
-    typealias position = positionProtocol
-    typealias carte = carteProtocol
+    
+associatedtype champsdebatailleProtocol = champs_de_bataille
+associatedtype positionProtocol = position
+associatedtype carteProtocol = carte
 
     var liste : [carte]
     
@@ -20,13 +20,17 @@ class main : mainProtocol {
         }
         
         self.liste = []
+
+        if let c =  carte(role : "Roi", joueur : num) {
             
-        self.liste.append(carte(role : "Roi", joueur : num))
+            self.liste.append(c)
+
+        }
         
     }
 
     func nbDeCarteMain() -> Int{
-        return self.liste.count()
+        return self.liste.count
     }
 
     func poserCarte(cdb : champs_de_bataille, c : String, pos : position){
@@ -39,10 +43,10 @@ class main : mainProtocol {
 
             if self.liste[i].roleCarte() == c {
                 
-                var b : bool = true // pour verifier qu'on ne pose la carte qu'une fois
+                var b : Bool = true // pour verifier qu'on ne pose la carte qu'une fois
 
                 for p in cdb.champ {
-                    if p == pos && b{
+                    if p === pos && b{
                         p.carte = self.liste[i]
                         self.liste.remove(at : i)
                         b = false
@@ -59,16 +63,20 @@ class main : mainProtocol {
         return self.liste
     }
 
-    func ajouterCartemain(c : carte){
-    
-        c.pos.carte = nil
+    func ajouterCarteMain(c : carte){
+
+        if let pos = c.pos{
+        
+        pos.carte = nil
         c.pos = nil
         self.liste.append(c)
+
+        }
     
     }
         
 
-    func avoirMain(r : String){
+    func avoirMain(r : String) -> Bool{
         var rep : Bool = false
         for c in self.liste{
             if c.roleCarte() == r{

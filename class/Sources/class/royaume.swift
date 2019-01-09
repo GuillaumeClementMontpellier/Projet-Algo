@@ -5,9 +5,9 @@ import Foundation
 
 class royaume : royaumeProtocol {
 
-    typealias carte = carteProtocol
-    typealias main = mainProtocol
-    typealias ItRoyaume = IteratorProtocol
+    associatedtype carteProtocol = carte
+    associatedtype mainProtocol = main
+    associatedtype ItRoyaume = Itroyaume
 
     var listeCartes : [carte]
 
@@ -15,8 +15,8 @@ class royaume : royaumeProtocol {
         self.listeCartes = []
     }
 
-    func makeItRoyaume() -> ItRoyaume{
-        return ItRoyaume(self)
+    func makeIterator() -> Itroyaume{
+        return Itroyaume(r : self)
     }
 
     func envoyerCarte(c : carte, m : main){
@@ -42,11 +42,11 @@ class royaume : royaumeProtocol {
     }
     
     func estDansRoyaume(c : carte) -> Bool{
-        var b : Bool = False
+        var b : Bool = false
         var i : Int = 0
         
         while i<self.listeCartes.count && !b{
-            if self.listeCartes[i] = c{
+            if self.listeCartes[i] === c{
                 b = true
             }
         }
