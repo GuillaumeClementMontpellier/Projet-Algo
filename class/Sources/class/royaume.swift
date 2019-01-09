@@ -27,12 +27,12 @@ class royaume : royaumeProtocol {
     func envoyerCarte(c : String, m : main){
 	    var b : Bool = true
 	    var i : Int = 0
-	    while (i<=m.liste.count and !b){
+	    while (i <= m.liste.count) && !b {
 		    if (m.liste[i].role == c){
       			m.liste[i].hand=nil
         		m.liste[i].roy=self
         		self.listeCartes.append(m.liste[i])
-			    b = true
+			b = true
 		    }
 	    i=i+1
 	    }	
