@@ -6,8 +6,8 @@ import Foundation
 class Itroyaume : ItRoyaume {
     
 
-    associatedtype royaumeProtocol = royaume
-    associatedtype carteProtocol = carte
+    typealias royaumeProtocol = royaume
+    typealias carteProtocol = carte
     
     
     var roy : royaume

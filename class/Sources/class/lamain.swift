@@ -5,9 +5,9 @@ import Foundation
 
 class main : mainProtocol {
     
-associatedtype champsdebatailleProtocol = champs_de_bataille
-associatedtype positionProtocol = position
-associatedtype carteProtocol = carte
+typealias champsdebatailleProtocol = champs_de_bataille
+typealias positionProtocol = position
+typealias carteProtocol = carte
 
     var liste : [carte]
     

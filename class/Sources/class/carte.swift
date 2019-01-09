@@ -5,10 +5,10 @@ import Foundation
 
 class carte : carteProtocol {
     
-associatedtype champsdebatailleProtocol = champs_de_bataille
-associatedtype royaumeProtocol = royaume
-associatedtype mainProtocol = main
-associatedtype positionProtocol = position
+typealias champsdebatailleProtocol = champs_de_bataille
+typealias royaumeProtocol = royaume
+typealias mainProtocol = main
+typealias positionProtocol = position
 
     var cdb : champs_de_bataille?
     var roy : royaume?

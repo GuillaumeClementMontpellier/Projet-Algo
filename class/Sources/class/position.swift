@@ -5,8 +5,8 @@ import Foundation
 
 class position : positionProtocol {
     
-associatedtype carteProtocol = carte
-associatedtype champsdebatailleProtocol = champs_de_bataille
+typealias carteProtocol = carte
+typealias champsdebatailleProtocol = champs_de_bataille
     
 
     var nomPos : String

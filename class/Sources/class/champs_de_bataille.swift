@@ -5,9 +5,9 @@ import Foundation
 
 class champs_de_bataille : champsdebatailleProtocol {
     
-associatedtype positionProtocol = position
-associatedtype carteProtocol = carte
-associatedtype royaumeProtocol = royaume
+typealias positionProtocol = position
+typealias carteProtocol = carte
+typealias royaumeProtocol = royaume
 
 
     var champ : [position]

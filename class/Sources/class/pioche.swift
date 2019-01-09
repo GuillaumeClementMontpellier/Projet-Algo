@@ -5,8 +5,8 @@ import Foundation
 
 class pioche : piocheProtocol {
     
-    associatedtype mainProtocol = main
-    associatedtype royaumeProtocol = royaume
+    typealias mainProtocol = main
+    typealias royaumeProtocol = royaume
 
     var liste : [carte]
 
