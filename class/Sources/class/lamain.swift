@@ -26,7 +26,6 @@ class main : mainProtocol {
         return self.liste.count()
     }
 
-    //poserCarte a faire
     func poserCarte(cdb : champs_de_bataille, c : String, pos : position){
 	// pré : il faut que c le role la carte existe dans la main
 	// pré : il faut que le joueur ai la carte dans sa main 
@@ -57,7 +56,6 @@ class main : mainProtocol {
         return self.liste
     }
 
-    //ajouterCarteMain a faire
     func ajouterCartemain(c : carte){
     
         c.pos.carte = nil
