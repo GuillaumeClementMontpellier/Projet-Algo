@@ -32,7 +32,7 @@ class royaume : royaumeProtocol {
       			m.liste[i].hand=nil
         		m.liste[i].roy=self
         		self.listeCartes.append(m.liste[i])
-			    b = true
+			b = true
 		    }
 	    i=i+1
 	    }	
