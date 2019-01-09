@@ -24,10 +24,18 @@ class royaume : royaumeProtocol {
         return Itroyaume(r : self)
     }
 
-    func envoyerCarte(c : String, m : main){ // il faut rechercher une carte correspondante dans la main, puis l'envoyer dans le royaume
-        //c.hand=nil
-        //c.roy=self
-        //self.listeCartes.append(c)
+    func envoyerCarte(c : String, m : main){
+	    var b : Bool = true
+	    var i : Int = 0
+	    while (i<=m.liste.count and !b){
+		    if (m.liste[i].role == c){
+      			m.liste[i].hand=nil
+        		m.liste[i].roy=self
+        		self.listeCartes.append(m.liste[i])
+			    b = true
+		    }
+	    i=i+1
+	    }	
     }
     
     func nbCarteRoyaume() -> Int{
