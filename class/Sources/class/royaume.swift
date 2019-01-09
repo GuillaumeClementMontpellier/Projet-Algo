@@ -3,28 +3,28 @@ import prot
 
 import Foundation
 
-class leroyaume : royaumeProtocol {
+public class leroyaume : royaumeProtocol {
 
-    typealias carteProtocol = carte
-    typealias mainProtocol = main
-    typealias ItRoyaume = Itroyaume
+    public typealias carteProtocol = carte
+    public typealias mainProtocol = main
+    public typealias ItRoyaume = Itroyaume
 
-    var listeCartes : [carte]
+    public var listeCartes : [carte]
 
-    required init(){
+    public required init(){
         self.listeCartes = []
     }
 
 
-    func makeItRoyaume() -> Itroyaume{
+    public func makeItRoyaume() -> Itroyaume{
         return makeIterator()
     }
 
-    func makeIterator() -> Itroyaume{
+    public func makeIterator() -> Itroyaume{
         return Itroyaume(r : self)
     }
 
-    func envoyerCarte(c : String, m : main){
+    public func envoyerCarte(c : String, m : main){
 	    var b : Bool = true
 	    var i : Int = 0
 	    while (i <= m.liste.count) && !b {
@@ -38,15 +38,15 @@ class leroyaume : royaumeProtocol {
 	    }	
     }
     
-    func nbCarteRoyaume() -> Int{
+    public func nbCarteRoyaume() -> Int{
         return self.listeCartes.count
     }
     
-    func decrireRoyaume() -> [carte]{
+    public func decrireRoyaume() -> [carte]{
         return self.listeCartes
     }
     
-    func retirerRoyaume(c : carte){
+    public func retirerRoyaume(c : carte){
         var i : Int = 0
         while (i < self.listeCartes.count) && (self.listeCartes[i] !== c) {
             i = i+1
@@ -54,7 +54,7 @@ class leroyaume : royaumeProtocol {
         self.listeCartes.remove(at : i)
     }
     
-    func estDansRoyaume(c : carte) -> Bool{
+    public func estDansRoyaume(c : carte) -> Bool{
         var b : Bool = false
         let i : Int = 0
         
@@ -66,11 +66,11 @@ class leroyaume : royaumeProtocol {
         return b
     }
     
-    func derniereCarte() -> carte{
+    public func derniereCarte() -> carte{
         return self.listeCartes[self.listeCartes.count-1]
     }
     
-    func premiereCarte() -> carte{
+    public func premiereCarte() -> carte{
         return self.listeCartes[0]
     }
 }

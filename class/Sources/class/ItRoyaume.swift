@@ -3,22 +3,22 @@ import prot
 
 import Foundation
 
-class Itroyaume : ItRoyaume {
+public class Itroyaume : ItRoyaume {
     
 
-    typealias royaumeProtocol = leroyaume
-    typealias carteProtocol = carte
+    public typealias royaumeProtocol = leroyaume
+    public typealias carteProtocol = carte
     
     
-    var roy : leroyaume
-    var courant : Int
+    public var roy : leroyaume
+    public var courant : Int
     
-    required init(r : leroyaume){
+    public required init(r : leroyaume){
         self.roy = r
         self.courant = 0
     }
     
-    func next() -> carte?{
+    public func next() -> carte?{
         if self.courant>self.roy.listeCartes.count{
             return nil
         }

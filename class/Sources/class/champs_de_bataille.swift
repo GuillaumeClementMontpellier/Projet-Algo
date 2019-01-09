@@ -3,19 +3,19 @@ import prot
 
 import Foundation
 
-class le_champs_de_bataille : champsdebatailleProtocol {
+public class le_champs_de_bataille : champsdebatailleProtocol {
     
-typealias positionProtocol = laposition
-typealias carteProtocol = carte
-typealias royaumeProtocol = leroyaume
-typealias mainProtocol = main
+public typealias positionProtocol = laposition
+public typealias carteProtocol = carte
+public typealias royaumeProtocol = leroyaume
+public typealias mainProtocol = main
 
-    var champ : [laposition]
-    var proprietaire  : Int
-    var roy : leroyaume //Royaume du joueur possédant le champ de bataille
-    var main : main // la main du joueur qui possede le champ de bataille
+    public var champ : [laposition]
+    public var proprietaire  : Int
+    public var roy : leroyaume //Royaume du joueur possédant le champ de bataille
+    public var main : main // la main du joueur qui possede le champ de bataille
     
-    required init(j : Int, r : leroyaume, m : main){
+    public required init(j : Int, r : leroyaume, m : main){
 
         self.proprietaire = j
 
@@ -33,7 +33,7 @@ typealias mainProtocol = main
         self.champ.append(laposition(n : "F3", cdb : self))
     }
         
-    func ajouterUneCarte(p : laposition, c : carte){
+    public func ajouterUneCarte(p : laposition, c : carte){
         //vérifie si dans la carte est dans la main du joueur
         if let m = c.main() {
             if c.joueur() == self.proprietaire{
@@ -51,7 +51,7 @@ typealias mainProtocol = main
         }
     }
 
-    func supprimerCarte(c : carte){
+    public func supprimerCarte(c : carte){
         //on verifie que la carte est sur le champ de bataille
         if let cdb = c.cdb() {
             if (cdb === self){
@@ -60,11 +60,11 @@ typealias mainProtocol = main
         }
     }
 
-    func estVidePosition(p : laposition) -> Bool{
+    public func estVidePosition(p : laposition) -> Bool{
         return p.estVide()
     }
 
-    func avancerCarte(p : laposition){
+    public func avancerCarte(p : laposition){
         if self.estVidePosition(p : p) && p.front(){
             if (p.nom() == "F1"){
                 if let carte = self.champ[3].carte(){
@@ -85,7 +85,7 @@ typealias mainProtocol = main
     }
     
     
-    func estVide() -> Bool{
+    public func estVide() -> Bool{
         var b : Bool = true
         var cpt : Int = 0
         while (b && cpt<6){
@@ -95,11 +95,11 @@ typealias mainProtocol = main
         return b
     }
     
-    func position() -> [laposition]{
+    public func position() -> [laposition]{
         return self.champ
     }
     
-    func obtenirCarte(p : laposition) -> carte{
+    public func obtenirCarte(p : laposition) -> carte{
         if let c = p.carte(){
             return c
         } else{
@@ -107,11 +107,11 @@ typealias mainProtocol = main
         }
     }
     
-    func royaume() -> leroyaume{
+    public func royaume() -> leroyaume{
         return self.roy
     }
     
-    func cimetiere(c : carte){
+    public func cimetiere(c : carte){
         if let pos = c.pos{
             pos.cartee = nil
             c.pos = nil
@@ -119,7 +119,7 @@ typealias mainProtocol = main
     }
     
     //place la carte la plus ancienne du royaume sur le champ de bataille (conscription)
-    func envoyerCarte(p : laposition){
+    public func envoyerCarte(p : laposition){
         let it : Itroyaume = self.roy.makeItRoyaume()
         if let c = it.next(){
             c.changerPosition(p : p)

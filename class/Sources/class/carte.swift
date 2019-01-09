@@ -3,21 +3,21 @@ import prot
 
 import Foundation
 
-class carte : carteProtocol {
+public class carte : carteProtocol {
     
-    typealias champsdebatailleProtocol = le_champs_de_bataille
-    typealias royaumeProtocol = leroyaume
-    typealias mainProtocol = main
-    typealias positionProtocol = laposition
+    public typealias champsdebatailleProtocol = le_champs_de_bataille
+    public typealias royaumeProtocol = leroyaume
+    public typealias mainProtocol = main
+    public typealias positionProtocol = laposition
     
-    var cddb : le_champs_de_bataille?
-    var roy : leroyaume?
-    var hand : main?
-    var pos : laposition?
+    public var cddb : le_champs_de_bataille?
+    public var roy : leroyaume?
+    public var hand : main?
+    public var pos : laposition?
     
-    var mode : Bool // true si la carte est offensive, false sinon
+    public var mode : Bool // true si la carte est offensive, false sinon
     
-    var att : Int{ //valeur d'attaque
+    public var att : Int{ //valeur d'attaque
         get{
             if self.role == "Soldat"{
                 if let c = self.cddb{
@@ -31,7 +31,7 @@ class carte : carteProtocol {
         }
     }
     
-    var def : Int{ //valeur de defense
+    public var def : Int{ //valeur de defense
         get{
             if self.mode {
                 switch self.role{
@@ -59,13 +59,13 @@ class carte : carteProtocol {
         }
     }
     
-    var joeur : Int
+    public var joeur : Int
     
-    var role : String
+    public var role : String
     
-    var ptDegat : [Int]
+    public var ptDegat : [Int]
     
-    var portee : [String]{
+    public var portee : [String]{
         
         get{
             var rep : [String] = []
@@ -133,7 +133,7 @@ class carte : carteProtocol {
         }
     }
     
-    required init?(role : String, joueur : Int){
+    public required init?(role : String, joueur : Int){
         //verifie les préconditions
         if joueur != 1 && joueur != 2 {
             return nil
@@ -151,15 +151,15 @@ class carte : carteProtocol {
         
     }
 
-    func changerMode(){
+    public func changerMode(){
         self.mode = !(self.mode)
     }
 
-    func estOffensive() -> Bool{
+    public func estOffensive() -> Bool{
         return self.mode
     }
 
-    func position() -> laposition{
+    public func position() -> laposition{
         if let pos = self.pos {
             return pos
         }else {
@@ -167,19 +167,19 @@ class carte : carteProtocol {
         }
     }
     
-    func changerPosition (p : laposition){
+    public func changerPosition (p : laposition){
         self.pos = p
     }
     
-    func valeurAttaque() -> Int{
+    public func valeurAttaque() -> Int{
         return self.att
     }
     
-    func valeurDefense() -> Int{
+    public func valeurDefense() -> Int{
         return self.def
     }
     
-    func pointDegat(t : Int) -> Int {
+    public func pointDegat(t : Int) -> Int {
         
         while (t >= self.ptDegat.count){
             self.ptDegat.append(0)
@@ -189,17 +189,17 @@ class carte : carteProtocol {
         
     }
     
-    func ajoutPointDegat(d : Int, t : Int){
+    public func ajoutPointDegat(d : Int, t : Int){
         let a : Int = pointDegat(t : t)
         self.ptDegat[t] = a + d
     }
 
-    func roleCarte() -> String {
+    public func roleCarte() -> String {
         return self.role
     }
 
     // PeutAttaquer et capturer
-    func peutAttaquer(c : carte) -> Bool{
+    public func peutAttaquer(c : carte) -> Bool{
         if !self.estOffensive(){
             return false
         } else {
@@ -220,7 +220,7 @@ class carte : carteProtocol {
         }
     }
     
-    func capturerCarte(attaquant : carte){ //still to do
+    public func capturerCarte(attaquant : carte){ //still to do
     	self.joeur = attaquant.joueur()
 
     	if let cdb = attaquant.cdb(){
@@ -234,19 +234,19 @@ class carte : carteProtocol {
     	}
     }
 
-    func cdb () -> le_champs_de_bataille? {
+    public func cdb () -> le_champs_de_bataille? {
         return self.cddb
     }
 
-    func royaume () -> leroyaume? {
+    public func royaume () -> leroyaume? {
         return self.roy
     }
     
-    func main () -> main? {
+    public func main () -> main? {
         return self.hand
     }
 
-    func joueur () -> Int {
+    public func joueur () -> Int {
         return self.joeur
     }
     

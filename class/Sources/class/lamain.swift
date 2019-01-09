@@ -3,15 +3,15 @@ import prot
 
 import Foundation
 
-class main : mainProtocol {
+public class main : mainProtocol {
     
-    typealias champsdebatailleProtocol = le_champs_de_bataille
-    typealias positionProtocol = laposition
-    typealias carteProtocol = carte
+    public typealias champsdebatailleProtocol = le_champs_de_bataille
+    public typealias positionProtocol = laposition
+    public typealias carteProtocol = carte
     
-    var liste : [carte]
+    public var liste : [carte]
     
-    required init?(num : Int){
+    public required init?(num : Int){
         
         if num != 1 && num != 2 {
             return nil
@@ -27,11 +27,11 @@ class main : mainProtocol {
         
     }
 
-    func nbDeCarteMain() -> Int{
+    public func nbDeCarteMain() -> Int{
         return self.liste.count
     }
 
-    func poserCarte(cdb : le_champs_de_bataille, c : String, pos : laposition){
+    public func poserCarte(cdb : le_champs_de_bataille, c : String, pos : laposition){
 	// pré : il faut que c le role la carte existe dans la main
 	// pré : il faut que le joueur ai la carte dans sa main 
 	// pré : il faut que le String corresponde a un role d'une carte (Archer, soldat ....)
@@ -57,11 +57,11 @@ class main : mainProtocol {
         }
     }
 
-    func listeCarteMain() -> [carte]{
+    public func listeCarteMain() -> [carte]{
         return self.liste
     }
 
-    func ajouterCarteMain(c : carte){
+    public func ajouterCarteMain(c : carte){
 
         if let pos = c.pos{
         
@@ -74,7 +74,7 @@ class main : mainProtocol {
     }
         
 
-    func avoirMain(r : String) -> Bool{
+    public func avoirMain(r : String) -> Bool{
         var rep : Bool = false
         for c in self.liste{
             if c.roleCarte() == r{

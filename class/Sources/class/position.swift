@@ -3,42 +3,42 @@ import prot
 
 import Foundation
 
-class laposition : positionProtocol {
+public class laposition : positionProtocol {
     
-typealias carteProtocol = carte
-typealias champsdebatailleProtocol = le_champs_de_bataille
+public typealias carteProtocol = carte
+public typealias champsdebatailleProtocol = le_champs_de_bataille
     
 
-    var nomPos : String
-    var cddb : le_champs_de_bataille
-    var cartee : carte?
+    public var nomPos : String
+    public var cddb : le_champs_de_bataille
+    public var cartee : carte?
 
-    required init(n : String, cdb : le_champs_de_bataille){
+    public required init(n : String, cdb : le_champs_de_bataille){
         self.nomPos = n
         self.cddb = cdb
     }
 
-    func estVide() -> Bool{
+    public func estVide() -> Bool{
         return self.cartee == nil
     }
 
-    func nom() -> String{
+    public func nom() -> String{
         return self.nomPos
     }
 
-    func carte() -> carte?{
+    public func carte() -> carte?{
         return self.cartee
     }
 
-    func front() -> Bool{
+    public func front() -> Bool{
         return (self.nomPos == "F1" || self.nomPos == "F2" || self.nomPos == "F3")
     }
 
-    func arriere() -> Bool{
+    public func arriere() -> Bool{
         return (self.nomPos == "A1" || self.nomPos == "A2" || self.nomPos == "A3")
     }
 
-    func cdb() -> le_champs_de_bataille{
+    public func cdb() -> le_champs_de_bataille{
         return self.cddb
     }
           

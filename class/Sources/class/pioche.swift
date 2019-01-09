@@ -3,14 +3,14 @@ import prot
 
 import Foundation
 
-class pioche : piocheProtocol {
+public class pioche : piocheProtocol {
     
-    typealias mainProtocol = main
-    typealias royaumeProtocol = leroyaume
+    public typealias mainProtocol = main
+    public typealias royaumeProtocol = leroyaume
 
-    var liste : [carte]
+    public var liste : [carte]
 
-    required init?(j : Int){
+    public required init?(j : Int){
         
         self.liste = []
         
@@ -38,7 +38,7 @@ if let c = carte(role : "Archer", joueur : j){
 
     //piocher a faire (pour le royaume puis pour la main)
 
-    func piocher(lieu : main, nb : Int){ 
+    public func piocher(lieu : main, nb : Int){ 
 	// pré : il faut que la pioche soit non vide
 	// pré : il faut que l'entier rentré en paramètre doit etre soit 1 soit 3
         // post : il faut enlever la carte de la pioche une fois qu'elle est piochée
@@ -49,7 +49,7 @@ if let c = carte(role : "Archer", joueur : j){
         self.liste.remove(at : 0)        
     }
     
-    func piocher(lieu : leroyaume, nb : Int){
+    public func piocher(lieu : leroyaume, nb : Int){
     // pré : il faut que la pioche soit non vide
     // pré : il faut que l'entier rentrée en paramètre doit etre soit 1 soit 3
     // post : il faut enlever la carte de la pioche une fois qu'elle est piochée
@@ -60,11 +60,11 @@ if let c = carte(role : "Archer", joueur : j){
         self.liste.remove(at : 0)
     }
 
-    func nbCartePioche() -> Int {
+    public func nbCartePioche() -> Int {
         return self.liste.count
     }
 
-    func estVidePioche() -> Bool {
+    public func estVidePioche() -> Bool {
         return nbCartePioche() == 0
     }
 
