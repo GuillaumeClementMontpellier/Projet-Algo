@@ -7,12 +7,12 @@ public class carte : carteProtocol {
     
     public typealias champsdebatailleProtocol = le_champs_de_bataille
     public typealias royaumeProtocol = leroyaume
-    public typealias mainProtocol = main
+    public typealias mainProtocol = lamain
     public typealias positionProtocol = laposition
     
     public var cddb : le_champs_de_bataille?
     public var roy : leroyaume?
-    public var hand : main?
+    public var hand : lamain?
     public var pos : laposition?
     
     public var mode : Bool // true si la carte est offensive, false sinon
@@ -21,7 +21,7 @@ public class carte : carteProtocol {
         get{
             if self.role == "Soldat"{
                 if let c = self.cddb{
-                    return c.main.nbDeCarteMain() // pas de moyen d'acceder au nbr de cartes dans la main du joueur
+                    return c.main.nbDeCarteMain() 
                 }else{
                     fatalError("NON")
                 }
@@ -242,7 +242,7 @@ public class carte : carteProtocol {
         return self.roy
     }
     
-    public func main () -> main? {
+    public func main () -> lamain? {
         return self.hand
     }
 

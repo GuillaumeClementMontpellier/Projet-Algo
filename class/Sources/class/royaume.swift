@@ -6,7 +6,7 @@ import Foundation
 public class leroyaume : royaumeProtocol {
 
     public typealias carteProtocol = carte
-    public typealias mainProtocol = main
+    public typealias mainProtocol = lamain
     public typealias ItRoyaume = Itroyaume
 
     public var listeCartes : [carte]
@@ -24,7 +24,7 @@ public class leroyaume : royaumeProtocol {
         return Itroyaume(r : self)
     }
 
-    public func envoyerCarte(c : String, m : main){
+    public func envoyerCarte(c : String, m : lamain){
 	    var b : Bool = true
 	    var i : Int = 0
 	    while (i <= m.liste.count) && !b {

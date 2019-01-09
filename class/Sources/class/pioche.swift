@@ -5,7 +5,7 @@ import Foundation
 
 public class pioche : piocheProtocol {
     
-    public typealias mainProtocol = main
+    public typealias mainProtocol = lamain
     public typealias royaumeProtocol = leroyaume
 
     public var liste : [carte]
@@ -38,7 +38,7 @@ if let c = carte(role : "Archer", joueur : j){
 
     //piocher a faire (pour le royaume puis pour la main)
 
-    public func piocher(lieu : main, nb : Int){ 
+    public func piocher(lieu : lamain, nb : Int){ 
 	// pré : il faut que la pioche soit non vide
 	// pré : il faut que l'entier rentré en paramètre doit etre soit 1 soit 3
         // post : il faut enlever la carte de la pioche une fois qu'elle est piochée

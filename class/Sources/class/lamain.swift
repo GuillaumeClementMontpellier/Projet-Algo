@@ -3,7 +3,7 @@ import prot
 
 import Foundation
 
-public class main : mainProtocol {
+public class lamain : mainProtocol {
     
     public typealias champsdebatailleProtocol = le_champs_de_bataille
     public typealias positionProtocol = laposition

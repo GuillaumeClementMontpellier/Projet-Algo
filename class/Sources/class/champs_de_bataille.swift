@@ -8,14 +8,14 @@ public class le_champs_de_bataille : champsdebatailleProtocol {
 public typealias positionProtocol = laposition
 public typealias carteProtocol = carte
 public typealias royaumeProtocol = leroyaume
-public typealias mainProtocol = main
+public typealias mainProtocol = lamain
 
     public var champ : [laposition]
     public var proprietaire  : Int
     public var roy : leroyaume //Royaume du joueur possédant le champ de bataille
-    public var main : main // la main du joueur qui possede le champ de bataille
+    public var main : lamain // la main du joueur qui possede le champ de bataille
     
-    public required init(j : Int, r : leroyaume, m : main){
+    public required init(j : Int, r : leroyaume, m : lamain){
 
         self.proprietaire = j
 

@@ -1,5 +1,6 @@
 import class
 
+import Foundation
 
 // ------------------------- fonction utile pour le programme principal --------------------------
 
@@ -8,7 +9,8 @@ import class
 // fonction executant l'ordre d'attaque emit par le joueur si celle si est possible(respectant les regles du jeu)
 // Pre : a et c doit etre de type Carte
 // Resultat : si l'attaque était possible, soit la carte a été detruite, soit elle a été capturée soit des points de dégats on été enregistré pour cette carte (pour le tour actuel)
-func attaquer(c : Carte, a : Carte, tour : Int){
+
+func attaquer(c : carte, a : carte, tour : Int){
     if a.peutAttaquer( cible : c) { // on verifie que la carte qui attaque peut bien attaquer la carte cible (vis a vis de la portee) 
         a.changerMode() // la carte a est mise en position offensive pour attaquer 
         var pos = c.position()
@@ -22,7 +24,7 @@ func attaquer(c : Carte, a : Carte, tour : Int){
     else if  a.valeurAttaque() > c.valeurDefense(){
         var pos = c.position()
         c.cdb().cimetiere() // la carte est detruite, elle est donc envoye vers le cimetiere
-        cdb.avancerCarte(p : pos) // avance la carte de deriere si la carte tuée est sur le front et si il y a une carte deriere celle-ci
+        cdba.avancerCarte(p : pos) // avance la carte de deriere si la carte tuée est sur le front et si il y a une carte deriere celle-ci
     }
     else {
         c.ajoutPointDegat(d : a.valeurAttaque, t : tour) // on enregistre les points de degats pour le tour actuel
@@ -38,19 +40,19 @@ func attaquer(c : Carte, a : Carte, tour : Int){
 // fonction executant une conscrition si le champs de bataille d'un joueur est vide si cette conscription est possible
 // Pre : c doit etre de type champsDeBataille
 // Resultat : si la conscription est possible, le champs de bataille n'est plus vide sinon le joueur perd la partie
-func conscription( c : Champsdebataille) -> Bool{
+func conscription( c : le_champs_de_bataille) -> Bool{
     if !c.royaume().estVide(){ // si le royaume n'est pas vide alors on peut lui enlever un citoyen
         c.envoyerCarte(c : c.royaume.premiereCarte()) // on enleve la carte la plus ancienne du royaume pour la mettre sur le champ de bataille 
         return true
     }
-    else if !c.main.estVide(){
+    else if !c.main().estVide(){
         print("le joueur adverse doit mettre une carte sur la ligne de front") // c'est le joueur adverse qui va choisir quelle carte il pose et a quel endroit
-        print(c.main)
+        print(c.main())
         print ("Choisissez votre carte")
         var carte = saisieCarte()
         print("Choisissez une position")
         var position = saisiePosition(cdb : c)
-        c.main.poserCarte(cdb : c, pos : position, c : carte )
+        c.main().poserCarte(cdb : c, pos : position, c : carte )
         return true
     }
     else {
@@ -62,7 +64,7 @@ func conscription( c : Champsdebataille) -> Bool{
 // fonction gerant la saisie d'une carte ainsi que les erreur que la saisie pourait faire
 // Pre : m est de type Main
 // Resultat : on renvoie un role valide pour poserCarte
-func saisieCarte(m : Main) -> String {
+func saisieCarte(m : lamain) -> String {
     print(m)
     print ("Choisissez le role de la carte que vous voulez poser")
     var carte = readLine()  
@@ -95,7 +97,7 @@ func saisieCarte(m : Main) -> String {
 // saisiePositionFront() : -> Position
 // fonction gerant la saisie d'une position ainsi que les erreur lié a cette saisie
 // Resultat : renvoie la position saisie et cette position est sur le front
-func saisiePositionFront(cdb : Champsdebataille) -> Position {
+func saisiePositionFront(cdb : le_champs_de_bataille) -> laposition {
     print("Choisissez une position")
     var pos = readLine()
     while !(pos is String) && !(pos == "F1" || pos == "F2" || pos == "F3"){
@@ -114,7 +116,7 @@ func saisiePositionFront(cdb : Champsdebataille) -> Position {
 // saisiePosition() : -> Position
 // fonction gerant la saisie d'une position ainsi que les erreur lié a cette saisie
 // Resultat : renvoie la position saisie
-func saisiePosition(cdb : Champsdebataille) -> String {
+func saisiePosition(cdb : le_champs_de_bataille) -> String {
     print("Choisissez une position")
     var pos = readLine()
     while (pos is String) && !(pos == "F1" || pos == "F2" || pos == "F3" || pos == "A1" || pos == "A2" || pos == "A3"){
@@ -166,7 +168,7 @@ func saisieAction() -> String {
 // fonction affichant la composition (position et carte sur ces positions)
 // pré le paramètre est du type Champsdebataille
 // Résultat : composition du champs de bataille sous forme de String facilement compréhensible par l'utilisateur
-func afficher(c : Champsdebataille) -> String {
+func afficher(c : le_champs_de_bataille) -> String {
     var str = ""
     for p in c.position() {
         if p.estVide() {
@@ -188,17 +190,17 @@ func afficher(c : Champsdebataille) -> String {
 var joueur1 = true   // joueur1 est vivant
 var joueur2 = true   // joueur2 est vivant
 
-var pioche1 = Pioche()  // pioche du joueur 1 généré 
-var pioche2 = Pioche()  // pioche du joueur 2 généré
+var pioche1 = pioche()  // pioche du joueur 1 généré 
+var pioche2 = pioche()  // pioche du joueur 2 généré
 
-var main1 = Main(num : 1) // initialisation de la main du joueur 1 avec le roi1
-var main2 = Main(num : 2) // initialisation de la main du joueur 2 avec le roi2
+var main1 = lamain(num : 1) // initialisation de la main du joueur 1 avec le roi1
+var main2 = lamain(num : 2) // initialisation de la main du joueur 2 avec le roi2
 
-var royaume1 = Royaume() // initialisation du royaume vide pour le joueur 1
-var royaume2 = Royaume() // initialisation du royaume vide pour le joueur 2
+var royaume1 = leroyaume() // initialisation du royaume vide pour le joueur 1
+var royaume2 = leroyaume() // initialisation du royaume vide pour le joueur 2
 
-var champsdebataille1 = Champsdebataille() // initialisation du champs de bataille vide pour le joueur 1
-var champsdebataille2 = ChampsDeBataille() // initialisation du champs de bataille vide pour le joueur 2
+var champsdebataille1 = le_champs_de_bataille() // initialisation du champs de bataille vide pour le joueur 1
+var champsdebataille2 = le_champs_de_bataille() // initialisation du champs de bataille vide pour le joueur 2
 
 
 
