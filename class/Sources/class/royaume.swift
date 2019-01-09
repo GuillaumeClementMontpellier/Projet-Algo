@@ -40,7 +40,7 @@ class royaume : royaumeProtocol {
     
     func retirerRoyaume(c : carte){
         var i : Int = 0
-        while (i < self.listeCartes.count) && (self.listeCartes[i] != c) {
+        while (i < self.listeCartes.count) && (self.listeCartes[i] !== c) {
             i = i+1
         }
         self.listeCartes.remove(at : i)
