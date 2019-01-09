@@ -41,7 +41,7 @@ associatedtype carteProtocol
 	// pré : il faut que la carte existe 
 	// pré : carte est de type Carte
 	// pré : main est de type main 
-	mutating func ajouterCarteMain (c : Carte)
+	mutating func ajouterCarteMain (c : carteProtocol)
     
     // avoirMain : Main x String -> Champsdebataille
     // Pre : m est de type main

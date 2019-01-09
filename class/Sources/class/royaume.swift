@@ -1,3 +1,6 @@
+
+import prot
+
 class royaume : royaumeProtocol {
 
     typealias carte = carteProtocol

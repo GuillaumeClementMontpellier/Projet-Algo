@@ -1,5 +1,7 @@
 // test Position 
 
+import class
+
 // test fonction estVide :
 
 public func testestVide(p : Position){

@@ -1,3 +1,6 @@
+
+import prot
+
 class ItRoyaume : IteratorProtocol {
     
     typealias royaume = royaumeProtocol

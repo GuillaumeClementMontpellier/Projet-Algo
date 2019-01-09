@@ -1,5 +1,7 @@
 // test carte
 
+import class
+
 // test fonction changerMode : 
 
 public func testCreationcarte(r : String, j : Int){

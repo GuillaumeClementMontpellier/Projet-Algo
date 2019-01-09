@@ -1,5 +1,7 @@
 //: Playground - noun: a place where people can play
 
+import class
+
 // test fonction nbCarteRoyaume 
 
 public func testnbCarteRoyaume (r : Royaume) {

@@ -6,7 +6,7 @@ protocol royaumeProtocol : Sequence {
     
     associatedtype carteProtocol
     associatedtype mainProtocol
-    associatedtype Itroyaume
+    associatedtype ItRoyaume
 
 
     // init : -> Royaume

@@ -1,3 +1,6 @@
+
+import prot
+
 class champs_de_bataille : champsdebatailleProtocol {
 
     typealias carte = carteProtocol

@@ -5,6 +5,7 @@ import Foundation
 protocol piocheProtocol {
     
     associatedtype mainProtocol
+    associatedtype royaumeProtocol
     
     // init? : -> Self
     // la pioche est créée avec 9 soldats, 6 gardes et 5 archers et elle est générée aléatoirement

@@ -1,5 +1,7 @@
 // test champs de bataille
 
+import class
+
 // test ajouterUneCarte :
 
 public func testajouterUneCarte (p : Position, c : Carte) {

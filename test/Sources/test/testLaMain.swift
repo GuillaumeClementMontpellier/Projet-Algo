@@ -1,5 +1,7 @@
 // test lamain 
 
+import class
+
 // test fonction nbCarteMain : 
 
 public func testnbCarteMain(m : Main){

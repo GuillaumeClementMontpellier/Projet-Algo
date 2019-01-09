@@ -6,6 +6,7 @@ protocol ItRoyaume : IteratorProtocol{
     
 
     associatedtype royaumeProtocol
+    associatedtype carteProtocol
 
     //init : Royaume -> Self
     // creation d'un iterateur pour un royaume tel que les cartes seront trié par leur odre d'entrée dans le royaume
@@ -14,5 +15,5 @@ protocol ItRoyaume : IteratorProtocol{
     
     // next : -> Carte?
     // fonction avancant vers le prochain element et le retourne ou retourne nil si le prochain element n'existe pas (si la suite est vide)
-    mutating func next() ->  Carte?
+    mutating func next() ->  carteProtocol?
 }

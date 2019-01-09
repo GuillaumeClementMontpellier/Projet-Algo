@@ -1,4 +1,5 @@
 
+import prot
 
 class pioche : piocheProtocol {
 

@@ -10,7 +10,7 @@ associatedtype champsdebatailleProtocol
     // init String : -> Position
     // création d'une position, initialisé vide et de nom F1, F2, F3, A1, A2 ou A3
     
-    init(n : String, cdb : Champdebataille)
+    init(n : String, cdb : champsdebatailleProtocol)
 
     
     // estVide : position -> Bool

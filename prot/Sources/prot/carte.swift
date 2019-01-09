@@ -71,12 +71,12 @@ associatedtype positionProtocol
 	// peutAttaquer : carte x Carte -> Bool
 	// fonction renvoyant true si la carte attaquante a peut attaquer la carte cible c (elle peut si elle n'a pas deja attaqué(pas deja en mode offensif) et que sa portée le lui permet (suivant son role))
 	// Pre : c et a doivent etre de type Carte
-	func peutAttaquer(c : carteProtocol) -> Bool
+	func peutAttaquer(c : Self) -> Bool
 
 	// capturerCarte : Carte x Carte ->
 	// fonction capurant la carte lors d'une attaque, la fonction envoie  la carte dans le royaume de l'adversaire (c'est donc l'adversaire qui possedera la carte)
 	// Pre : c doit etre de type Carte et a est l acarte qui attaque (permet d'acceder a son royaume)
-	mutating func capturerCarte(attaquant : Carte)
+	mutating func capturerCarte(attaquant : Self)
 
 	// cdb : Carte -> (ChampDeBataille|Vide)
 	// fonction retournant le champs de bataille sur lequel la carte est posée
