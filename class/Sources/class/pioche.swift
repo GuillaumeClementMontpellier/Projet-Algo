@@ -48,9 +48,9 @@ class pioche : piocheProtocol {
     // post : il faut enlever la carte de la pioche une fois qu'elle est piochée
     //      : la carte enlevée de la pioche doit etre ajouté dans le Royaume
 
-        lieu.liste.append(self.liste[0])
+        lieu.listeCartes.append(self.liste[0])
 
-        self.listeCartes.remove(at : 0)
+        self.liste.remove(at : 0)
     }
 
     func nbCartePioche() -> Int {
