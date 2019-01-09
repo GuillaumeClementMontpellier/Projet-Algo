@@ -1,6 +1,8 @@
 
 import prot
 
+import Foundation
+
 class main : mainProtocol {
 
     typealias champs_de_bataille = champdebatailleProtocol

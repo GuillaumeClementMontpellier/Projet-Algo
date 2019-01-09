@@ -1,6 +1,8 @@
 
 import prot
 
+import Foundation
+
 class position : positionProtocol {
     
     typealias carte = carteProtocol

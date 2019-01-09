@@ -1,6 +1,8 @@
 
 import prot
 
+import Foundation
+
 class royaume : royaumeProtocol {
 
     typealias carte = carteProtocol
@@ -17,7 +19,7 @@ class royaume : royaumeProtocol {
         return ItRoyaume(self)
     }
 
-    mutating func envoyerCarte(c : carte, m : main){
+    func envoyerCarte(c : carte, m : main){
         c.hand=nil
         c.roy=self
         self.listeCartes.append(c)
@@ -31,7 +33,7 @@ class royaume : royaumeProtocol {
         return self.listeCartes
     }
     
-    mutating func retirerRoyaume(c : carte){
+    func retirerRoyaume(c : carte){
         var i : Int = 0
         while i<self.listeCartes.count && self.listeCartes[i]!=c{
             i = i+1

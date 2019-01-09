@@ -1,6 +1,8 @@
 
 import prot
 
+import Foundation
+
 class pioche : piocheProtocol {
 
     typealias main = mainProtocol

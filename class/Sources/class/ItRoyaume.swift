@@ -1,6 +1,8 @@
 
 import prot
 
+import Foundation
+
 class ItRoyaume : IteratorProtocol {
     
     typealias royaume = royaumeProtocol

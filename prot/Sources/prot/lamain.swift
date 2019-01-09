@@ -2,7 +2,7 @@ import Foundation
 
 //main 
 
-protocol mainProtocol {
+public protocol mainProtocol {
     
 associatedtype champsdebatailleProtocol
 associatedtype positionProtocol

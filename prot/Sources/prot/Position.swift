@@ -2,7 +2,7 @@ import Foundation
 
 // ce fichier contient le type abstrait correspondant à une position sur le champs de bataille
 
-protocol positionProtocol {
+public protocol positionProtocol {
     
 associatedtype carteProtocol
 associatedtype champsdebatailleProtocol

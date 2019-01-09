@@ -1,6 +1,6 @@
 // champs de bataille
 
-protocol champsdebatailleProtocol {
+public protocol champsdebatailleProtocol {
     
 associatedtype positionProtocol
 associatedtype carteProtocol

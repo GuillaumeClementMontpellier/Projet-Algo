@@ -2,7 +2,7 @@ import Foundation
 
 // pioche
 
-protocol piocheProtocol {
+public protocol piocheProtocol {
     
     associatedtype mainProtocol
     associatedtype royaumeProtocol

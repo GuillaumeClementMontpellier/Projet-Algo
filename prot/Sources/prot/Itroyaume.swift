@@ -2,7 +2,7 @@ import Foundation
 
 // Itroyaume 
 
-protocol ItRoyaume : IteratorProtocol{
+public protocol ItRoyaume : IteratorProtocol{
     
 
     associatedtype royaumeProtocol

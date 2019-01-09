@@ -2,7 +2,7 @@ import Foundation
 
 // royaume 
 
-protocol royaumeProtocol : Sequence {
+public protocol royaumeProtocol : Sequence {
     
     associatedtype carteProtocol
     associatedtype mainProtocol

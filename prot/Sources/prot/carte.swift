@@ -4,7 +4,7 @@ import Foundation
 
 // Carte a un role parmi {Roi , Soldat, Garde, Archer}, chaque role correspond a des parametre defenie par le jeu
 
-protocol carteProtocol  {
+public protocol carteProtocol  {
     
 associatedtype champsdebatailleProtocol
 associatedtype royaumeProtocol
