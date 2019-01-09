@@ -3,7 +3,7 @@ import prot
 
 import Foundation
 
-class royaume : royaumeProtocol {
+class leroyaume : royaumeProtocol {
 
     typealias carteProtocol = carte
     typealias mainProtocol = main
@@ -56,7 +56,7 @@ class royaume : royaumeProtocol {
     
     func estDansRoyaume(c : carte) -> Bool{
         var b : Bool = false
-        var i : Int = 0
+        let i : Int = 0
         
         while i<self.listeCartes.count && !b{
             if self.listeCartes[i] === c{

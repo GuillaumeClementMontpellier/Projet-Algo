@@ -2,11 +2,13 @@
 
 import class
 
+import Foundation
+
 // test fonction changerMode : 
 
 public func testCreationcarte(r : String, j : Int){
 	print("test creation d'une carte")
-	var c = Carte(role : r, joueur : j)
+	var c = carte(role : r, joueur : j)
 	if c.role() != r{
 		print("La carte est du bon role")
 	}
@@ -19,8 +21,8 @@ public func testCreationcarte(r : String, j : Int){
 	else {
 		print("erreur la carte n'a pas le bon mode")
 	}
-	var ca = Carte(role : "rien", joueur : 1)
-	if isKindOf(ca,Vide){
+	var ca = carte(role : "rien", joueur : 1)
+	if ca == nil{
 		print("la création a bien echoué")
 	}
 	else{
@@ -29,11 +31,11 @@ public func testCreationcarte(r : String, j : Int){
 }
 
 public func testchangerMode(){
-	print ("test changerMode()")
-	var ca = Carte(role : "rien", joueur : 1)
+	print("test changerMode()")
+	var ca = carte(role : "Soldat", joueur : 1)
 	ca.changerMode()
 	if !ca.estOffensive(){
-		print ("Erreur : la carte est initialisé en position defensive donc doit etre en offensice")
+		print ("Erreur : la carte est initialisé en position defensive donc doit etre en offensive")
 	}
 	else {
 		print ("La fonction marche")
@@ -44,7 +46,7 @@ public func testchangerMode(){
 
 public func testestOffensive() {
 	print("test estOffensive()")
-	c = Carte(role : r, joueur : j)
+	c = carte(role : r, joueur : j)
 	if !c.estOffensive() {
 		print("la fonction marche")
 	}
@@ -60,15 +62,17 @@ public func testestOffensive() {
 	}
 }
 
-public func testposition(c : Carte){
+public func testposition(c : carte){
 	print("test position")
 	var pos = c.postion()
+if let ca = pos.carte(){
 	if pos.carte() == c {
 		print("OK")
 	}
 	else {
 		print("Erreur ne renvoie pas la bonne position")
 	}
+}
 }
 
 

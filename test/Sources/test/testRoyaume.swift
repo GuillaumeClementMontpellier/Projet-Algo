@@ -2,6 +2,8 @@
 
 import class
 
+import Foundation
+
 // test fonction nbCarteRoyaume 
 
 public func testnbCarteRoyaume (r : Royaume) {

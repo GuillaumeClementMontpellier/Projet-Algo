@@ -5,22 +5,26 @@ import Foundation
 
 class carte : carteProtocol {
     
-typealias champsdebatailleProtocol = champs_de_bataille
-typealias royaumeProtocol = royaume
-typealias mainProtocol = main
-typealias positionProtocol = position
-
-    var cdb : champs_de_bataille?
-    var roy : royaume?
+    typealias champsdebatailleProtocol = le_champs_de_bataille
+    typealias royaumeProtocol = leroyaume
+    typealias mainProtocol = main
+    typealias positionProtocol = laposition
+    
+    var cddb : le_champs_de_bataille?
+    var roy : leroyaume?
     var hand : main?
-    var pos : position?
-
+    var pos : laposition?
+    
     var mode : Bool // true si la carte est offensive, false sinon
     
     var att : Int{ //valeur d'attaque
         get{
             if self.role == "Soldat"{
-                return self.cdb.main.nbDeCarteMain() // pas de moyen d'acceder au nbr de cartes dans la main du joueur
+                if let c = self.cddb{
+                    return c.main.nbDeCarteMain() // pas de moyen d'acceder au nbr de cartes dans la main du joueur
+                }else{
+                    fatalError("NON")
+                }
             }else{
                 return 1
             }
@@ -56,20 +60,20 @@ typealias positionProtocol = position
     }
     
     var joeur : Int
-
+    
     var role : String
-
+    
     var ptDegat : [Int]
     
     var portee : [String]{
-    
+        
         get{
             var rep : [String] = []
-
-            if let pos = self.pos{
             
-                switch self.role {
+            if let pos = self.pos{
                 
+                switch self.role {
+                    
                 case "Roi":
                     if pos.arriere(){
                         if self.joeur == 1{
@@ -113,24 +117,23 @@ typealias positionProtocol = position
                         rep.append("F2")
                     }
                     
-                    default: // soldat ou Garde
-                        if pos.front(){
-                            if pos.nom() == "F1"{
-                                rep.append("F1")
-                            } else if pos.nom() == "F2"{
-                                rep.append("F2")
-                            } else { // en F3
-                                rep.append("F3")
-                            }
+                default: // soldat ou Garde
+                    if pos.front(){
+                        if pos.nom() == "F1"{
+                            rep.append("F1")
+                        } else if pos.nom() == "F2"{
+                            rep.append("F2")
+                        } else { // en F3
+                            rep.append("F3")
                         }
-                        
+                    }    
                 }
             }
             return rep
         }
     }
-
-    init?(role : String, joueur : Int){
+    
+    required init?(role : String, joueur : Int){
         //verifie les préconditions
         if joueur != 1 && joueur != 2 {
             return nil
@@ -156,15 +159,15 @@ typealias positionProtocol = position
         return self.mode
     }
 
-    func position() throws -> position{
+    func position() -> laposition{
         if let pos = self.pos {
             return pos
         }else {
-            throw Error
+            fatalError("NOOOOOOOOOOOOOOOOOOOOOO")
         }
     }
     
-    func changerPosition (p : position){
+    func changerPosition (p : laposition){
         self.pos = p
     }
     
@@ -200,25 +203,30 @@ typealias positionProtocol = position
         if !self.estOffensive(){
             return false
         } else {
-            var s = self.att
-            var rep :Bool = false
-            for nom in s {
-                if nom == c.pos.nom() {
-                    rep = true
-                }
-            }
             
-            return rep
+	    if let pos = c.pos{
+                let s = self.portee
+                var rep : Bool = false
+                for nom in s {
+                    if nom == pos.nom() {
+                        rep = true
+                    }
+                }
+                
+                return rep
+            }else{
+                fatalError("NOOOOOOOOOOOO2")
+            }
         }
     }
     
     func capturerCarte(attaquant : carte){ //still to do
     	self.joeur = attaquant.joueur()
 
-    	if let cdb = attaquant.cdb{
+    	if let cdb = attaquant.cdb(){
             if let pos = self.pos {
-    	        self.cdb = nil
-    	        pos.carte = nil
+    	        self.cddb = nil
+    	        pos.cartee = nil
     	        self.pos = nil
     	        self.roy = cdb.roy
     	        cdb.roy.listeCartes.append(self)
@@ -226,11 +234,11 @@ typealias positionProtocol = position
     	}
     }
 
-    func cdb () -> champs_de_bataille? {
-        return self.cdb
+    func cdb () -> le_champs_de_bataille? {
+        return self.cddb
     }
 
-    func royaume () -> royaume? {
+    func royaume () -> leroyaume? {
         return self.roy
     }
     

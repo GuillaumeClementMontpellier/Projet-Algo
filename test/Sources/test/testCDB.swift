@@ -2,6 +2,8 @@
 
 import class
 
+import Foundation
+
 // test ajouterUneCarte :
 
 public func testajouterUneCarte (p : Position, c : Carte) {

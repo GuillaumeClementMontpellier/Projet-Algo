@@ -5,26 +5,24 @@ import Foundation
 
 class main : mainProtocol {
     
-typealias champsdebatailleProtocol = champs_de_bataille
-typealias positionProtocol = position
-typealias carteProtocol = carte
-
+    typealias champsdebatailleProtocol = le_champs_de_bataille
+    typealias positionProtocol = laposition
+    typealias carteProtocol = carte
+    
     var liste : [carte]
     
-    var champ : champs_de_bataille
-    
-    init?(num : Int){
+    required init?(num : Int){
         
         if num != 1 && num != 2 {
             return nil
         }
         
         self.liste = []
-
+        
         if let c =  carte(role : "Roi", joueur : num) {
             
             self.liste.append(c)
-
+            
         }
         
     }
@@ -33,7 +31,7 @@ typealias carteProtocol = carte
         return self.liste.count
     }
 
-    func poserCarte(cdb : champs_de_bataille, c : String, pos : position){
+    func poserCarte(cdb : le_champs_de_bataille, c : String, pos : laposition){
 	// pré : il faut que c le role la carte existe dans la main
 	// pré : il faut que le joueur ai la carte dans sa main 
 	// pré : il faut que le String corresponde a un role d'une carte (Archer, soldat ....)
@@ -47,7 +45,7 @@ typealias carteProtocol = carte
 
                 for p in cdb.champ {
                     if p === pos && b{
-                        p.carte = self.liste[i]
+                        p.cartee = self.liste[i]
                         self.liste.remove(at : i)
                         b = false
                     }
@@ -67,7 +65,7 @@ typealias carteProtocol = carte
 
         if let pos = c.pos{
         
-        pos.carte = nil
+        pos.cartee = nil
         c.pos = nil
         self.liste.append(c)
 

@@ -6,14 +6,14 @@ import Foundation
 class Itroyaume : ItRoyaume {
     
 
-    typealias royaumeProtocol = royaume
+    typealias royaumeProtocol = leroyaume
     typealias carteProtocol = carte
     
     
-    var roy : royaume
+    var roy : leroyaume
     var courant : Int
     
-    required init(r : royaume){
+    required init(r : leroyaume){
         self.roy = r
         self.courant = 0
     }

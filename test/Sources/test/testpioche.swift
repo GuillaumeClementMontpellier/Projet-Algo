@@ -1,6 +1,8 @@
 
 import class
 
+import Foundation
+
 // test fonction piocher : 
 public func testPiocher(p : Pioche, n : Int){
     print ("test piocher()")

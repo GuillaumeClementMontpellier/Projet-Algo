@@ -3,28 +3,23 @@ import prot
 
 import Foundation
 
-class position : positionProtocol {
+class laposition : positionProtocol {
     
 typealias carteProtocol = carte
-typealias champsdebatailleProtocol = champs_de_bataille
+typealias champsdebatailleProtocol = le_champs_de_bataille
     
 
     var nomPos : String
-    var cddb : champs_de_bataille
+    var cddb : le_champs_de_bataille
     var cartee : carte?
 
-    init(n : String, cdb : champs_de_bataille){
+    required init(n : String, cdb : le_champs_de_bataille){
         self.nomPos = n
         self.cddb = cdb
     }
 
     func estVide() -> Bool{
-        if let c = self.carte(){
-            return false
-        }
-        else{
-            return true
-        }
+        return self.cartee == nil
     }
 
     func nom() -> String{
@@ -43,7 +38,7 @@ typealias champsdebatailleProtocol = champs_de_bataille
         return (self.nomPos == "A1" || self.nomPos == "A2" || self.nomPos == "A3")
     }
 
-    func cdb() -> champs_de_bataille{
+    func cdb() -> le_champs_de_bataille{
         return self.cddb
     }
           

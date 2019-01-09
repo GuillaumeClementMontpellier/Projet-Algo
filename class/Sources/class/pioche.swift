@@ -6,25 +6,32 @@ import Foundation
 class pioche : piocheProtocol {
     
     typealias mainProtocol = main
-    typealias royaumeProtocol = royaume
+    typealias royaumeProtocol = leroyaume
 
     var liste : [carte]
 
-    init?(j : Int){
+    required init?(j : Int){
         
         self.liste = []
         
-        for i in 1...9{
-            self.liste.append(carte(role : "Soldat", joueur : j))
+        for _ in 1...9{
+if let c = carte(role : "Soldat", joueur : j){
+            self.liste.append(c)
         }
+}
 
-        for i in 1...6{
-            self.liste.append(carte(role : "Garde", joueur : j))
+        for _ in 1...6{
+if let c = carte(role : "Garde", joueur : j){
+            self.liste.append(c)
         }
+}
 
-        for i in 1...5{
-            self.liste.append(carte(role : "Archer", joueur : j))
+        for _ in 1...5{
+if let c = carte(role : "Archer", joueur : j){
+            self.liste.append(c)
         }
+}
+
 
         self.liste.shuffle()
     }
@@ -42,7 +49,7 @@ class pioche : piocheProtocol {
         self.liste.remove(at : 0)        
     }
     
-    func piocher(lieu : royaume, nb : Int){
+    func piocher(lieu : leroyaume, nb : Int){
     // pré : il faut que la pioche soit non vide
     // pré : il faut que l'entier rentrée en paramètre doit etre soit 1 soit 3
     // post : il faut enlever la carte de la pioche une fois qu'elle est piochée

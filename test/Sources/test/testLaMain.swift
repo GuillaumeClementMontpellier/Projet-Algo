@@ -2,6 +2,8 @@
 
 import class
 
+import Foundation
+
 // test fonction nbCarteMain : 
 
 public func testnbCarteMain(m : Main){

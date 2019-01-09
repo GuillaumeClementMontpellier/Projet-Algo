@@ -8,8 +8,8 @@ public protocol piocheProtocol {
     associatedtype royaumeProtocol
     
     // init? : -> Self
-    // la pioche est créée avec 9 soldats, 6 gardes et 5 archers et elle est générée aléatoirement
-	init? ()
+    // la pioche est créée avec 9 soldats, 6 gardes et 5 archers et elle est générée aléatoirement (j est le joueur)
+	init? (j : Int)
 
 
 	// piocher : Pioche x Main x Int

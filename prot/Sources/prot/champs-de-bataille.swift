@@ -5,11 +5,12 @@ public protocol champsdebatailleProtocol {
 associatedtype positionProtocol
 associatedtype carteProtocol
 associatedtype royaumeProtocol
+associatedtype mainProtocol
     
     
 	// init? : Int -> Champsdebataille
     // renvoit un champs de bataille initialisé avec 6 positions vides correspondant aux 6 positions du jeu
-    init ()
+    init (j : Int, r : royaumeProtocol, m : mainProtocol)
 
 	//ajouterUneCarte : Champsdebataille x Position x Carte ->
 	// pre : il faut que la carte soit disponible dans le main
@@ -59,12 +60,12 @@ associatedtype royaumeProtocol
     // cimetiere : Carte ->
     // fonction permettant supprimer une carte et donc de considérer qu'on la envoyé au cimetiere
     // pré : carte est de type Carte et position est de type Position
-    mutating func cimetiere ()
+    mutating func cimetiere (c : carteProtocol)
     
     
     // envoyerCarte : Champsdebataille x Carte ->
     // Pre : c est une carte qui est dans la main du joueur qui a ce champs de bataille
-    // fonction qui prendra une carte du royaume ou de la main et qui va envoyer cette carte sur le champs de bataille
-    mutating func envoyerCarte (c : carteProtocol)
+    // fonction qui prendra une carte du royaume ou de la main et qui va envoyer cette carte sur le champs de bataille (conscription)
+    mutating func envoyerCarte (p : positionProtocol)
     
 }

@@ -2,6 +2,8 @@
 
 import class
 
+import Foundation
+
 // test fonction estVide :
 
 public func testestVide(p : Position){
