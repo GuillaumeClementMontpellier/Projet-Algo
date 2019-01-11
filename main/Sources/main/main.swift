@@ -119,7 +119,7 @@ func saisieCarte(m : lamain) -> String {
 func saisiePositionFront(cdb : le_champs_de_bataille) -> laposition {
     print("Champs de bataille")
     print(afficher(c : cdb))
-    print("Choisissez une position")
+    print("Choisissez une position de front")
     var pos = readLine()
     while (pos != nil) && !(pos == "F1" || pos == "F2" || pos == "F3"){
         print("Vous devez choisir une position parmi F1, F2, F3")
