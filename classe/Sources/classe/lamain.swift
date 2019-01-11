@@ -31,7 +31,7 @@ public class lamain : mainProtocol {
         return self.liste.count
     }
 
-    public func poserCarte(cdb : le_champs_de_bataille, c : String, pos : laposition){
+    public func poserCarte(cdb : le_champs_de_bataille, c : String, pos : laposition){ 
 	// pré : il faut que c le role la carte existe dans la main
 	// pré : il faut que le joueur ai la carte dans sa main 
 	// pré : il faut que le String corresponde a un role d'une carte (Archer, soldat ....)
@@ -45,6 +45,13 @@ public class lamain : mainProtocol {
 
                 for p in cdb.champ {
                     if p === pos && b{
+
+                        if let ca = p.carte(){
+
+                            self.ajouterCarteMain(c : ca)
+
+                        }
+                        
                         self.liste[i].cddb = cdb
                         self.liste[i].pos = p
                         p.cartee = self.liste[i]
@@ -67,9 +74,10 @@ public class lamain : mainProtocol {
 
         if let pos = c.pos{
         
-        pos.cartee = nil
-        c.pos = nil
-        self.liste.append(c)
+            pos.cartee = nil
+            c.pos = nil
+            c.cddb = nil
+            self.liste.append(c)
 
         }
     
