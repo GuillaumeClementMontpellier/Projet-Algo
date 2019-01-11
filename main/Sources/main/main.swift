@@ -9,28 +9,41 @@ import classe
 // Pre : a et c doit etre de type Carte
 // Resultat : si l'attaque était possible, soit la carte a été detruite, soit elle a été capturée soit des points de dégats on été enregistré pour cette carte (pour le tour actuel)
 
-func attaquer(c : carte, a : carte, tour : Int) {
-    let cdba = c.cdb()!
-    if a.peutAttaquer( c : c) { // on verifie que la carte qui attaque peut bien attaquer la carte cible (vis a vis de la portee) 
-        a.changerMode() // la carte a est mise en position offensive pour attaquer 
-        let pos = c.position() // on stock les deux valeurs parce que une fois detruite ou captué on n'aura plus acces a ces information
-        if a.valeurAttaque() == c.valeurDefense() {
-            c.capturerCarte(attaquant : a) // la carte est capture vers le royaume de l'attaquant
-            cdba.avancerCarte(p : pos) // avance la carte de deriere si la carte capturée est sur le front et si il y a une carte deriere celle-ci
+func attaquer(posdef : laposition, posatt : laposition, tour : Int) {
+    let cdba = posdef.cdb()
+
+    if let c = posdef.carte(){// s'il y a une carte a la position de la defense
+        if let a = posatt.carte(){ // s'il y a une carte a la position attaquante
+            
+            if a.peutAttaquer( c : c) { // on verifie que la carte qui attaque peut bien attaquer la carte cible (vis a vis de la portee) 
+                a.changerMode() // la carte a est mise en position offensive pour attaquer 
+                if a.valeurAttaque() == c.valeurDefense() {
+                    c.capturerCarte(attaquant : a) // la carte est capture vers le royaume de l'attaquant
+                    cdba.avancerCarte(p : posdef) // avance la carte de deriere si la carte capturée est sur le front et si il y a une carte deriere celle-ci
+                }
+                
+                else if  a.valeurAttaque() > c.valeurDefense(){
+                    cdba.cimetiere(c : c) // la carte est detruite, elle est donc envoye vers le cimetiere
+                    cdba.avancerCarte(p : posdef) // avance la carte de deriere si la carte tuée est sur le front et si il y a une carte deriere celle-ci
+                }
+                else {
+                    c.ajoutPointDegat(d : a.valeurAttaque(), t : tour) // on enregistre les points de degats pour le tour actuel
+                    if c.pointDegat(t : tour) > c.valeurDefense() {
+                        cdba.cimetiere(c : c) // la carte est detruite, elle est donc envoye vers le cimetiere
+                    }
+                }
+            }
+            else {
+                print("Pas d'attaque, la carte defensive n'est pas a portée de la carte attaquante")
+            }
         }
-    }
-    else if  a.valeurAttaque() > c.valeurDefense(){
-        let pos = c.position()
-        c.cdb()!.cimetiere(c : c) // la carte est detruite, elle est donc envoye vers le cimetiere
-        cdba.avancerCarte(p : pos) // avance la carte de deriere si la carte tuée est sur le front et si il y a une carte deriere celle-ci
+        else{
+            print("Pas d'attaque, la position attaquante est vide")
+        }
     }
     else {
-        c.ajoutPointDegat(d : a.valeurAttaque(), t : tour) // on enregistre les points de degats pour le tour actuel
-        if c.pointDegat(t : tour) > c.valeurDefense() {
-            c.cdb()!.cimetiere(c : c) // la carte est detruite, elle est donc envoye vers le cimetiere
-        }
+        print("Pas d'attaque, la position de defense est vide")
     }
-        
 }
 
 
@@ -45,7 +58,7 @@ func conscription( c : le_champs_de_bataille, p : laposition) -> Bool{
     }
     else if !(c.main.nbDeCarteMain() == 0) {
         print("le joueur adverse doit mettre une carte sur la ligne de front") // c'est le joueur adverse qui va choisir quelle carte il pose et a quel endroit
-        print(c.main)
+        print(afficher(m : c.main))
         print ("Choisissez votre carte")
         let carte = saisieCarte(m : c.main)
         print("Choisissez une position")
@@ -63,7 +76,7 @@ func conscription( c : le_champs_de_bataille, p : laposition) -> Bool{
 // Pre : m est de type Main
 // Resultat : on renvoie un role valide pour poserCarte
 func saisieCarte(m : lamain) -> String {
-    print(m)
+    print(afficher(m : m))
     print ("Choisissez le role de la carte que vous voulez poser")
     var carte = readLine()  
     var erreurSaisie = false // servira pour les gerer les ereur de saisie des joueurs
@@ -79,7 +92,7 @@ func saisieCarte(m : lamain) -> String {
         }
         if bonneSaisie && !m.avoirMain(r : carte!) {
             print("Vous n'avez pas cette carte dans votre main, choisissez un autre role. Voila votre main :")
-            print(m)
+            print(afficher(m : m))
             carte = readLine()
             bonneSaisie = false
         }
@@ -118,7 +131,7 @@ func saisiePositionFront(cdb : le_champs_de_bataille) -> laposition {
 func saisiePosition(cdb : le_champs_de_bataille) -> laposition {
     print("Choisissez une position")
     var pos = readLine()
-    while (pos != nil) && !(pos == "F1" || pos == "F2" || pos == "F3" || pos == "A1" || pos == "A2" || pos == "A3"){
+    while !(pos == "F1" || pos == "F2" || pos == "F3" || pos == "A1" || pos == "A2" || pos == "A3"){
         print("Vous devez choisir une position parmi F1, F2, F3, A1, A2, A3")
         pos = readLine()
     }
@@ -138,12 +151,15 @@ func saisiePosition(cdb : le_champs_de_bataille) -> laposition {
 func saisieBool() -> Bool {
     var a = readLine()
     var b : Bool = false
-    while (a != nil) && !((a == "false") || (a == "true")){
+    var fini : Bool = false
+    while !fini{
         if a == "true"{
             b = true
+            fini = true
         }
         else if a == "false"{
             b = false
+            fini = true
         }
         else {
         print("Vous devez ecrire true ou false")
@@ -178,6 +194,20 @@ func afficher(c : le_champs_de_bataille) -> String {
         else {
             str += p.nom() + " : " + p.carte()!.roleCarte() + ", "
         }
+        if p.nom() == "A3"{
+            str+="\n"
+        }
+    }
+
+    return str
+}
+
+// afficher la main
+func afficher(m : lamain) -> String {
+    var str = "Votre main est :\n"
+
+    for c in m.listeCarteMain(){
+        str += c.roleCarte() + ", "
     }
 
     return str
@@ -211,8 +241,8 @@ var champsdebataille2 = le_champs_de_bataille( j : 2, r : royaume2, m : main2) /
 // ----------------------   MISE EN PLACE DE LA PARTIE  ------------------------------
 print("La partie commence")
 //initialisation de la partie
-pioche1.piocher(lieu : main1,nb : 3) // on place 3 cartes de la pioche du joueur 1 dans sa main
-pioche2.piocher(lieu : main2,nb : 3) // on place 3 cartes de la pioche du joueur 2 dans sa main
+pioche1.piocher(lieu : main1, nb : 3) // on place 3 cartes de la pioche du joueur 1 dans sa main
+pioche2.piocher(lieu : main2, nb : 3) // on place 3 cartes de la pioche du joueur 2 dans sa main
 pioche1.piocher(lieu : royaume1, nb : 1) // on place une carte dans le royaume du joueur 1
 pioche2.piocher(lieu : royaume2, nb : 1) // on place une carte dans le royaume du joueur 2
 print("le joueur1 doit mettre une carte sur la ligne de front")
@@ -234,7 +264,7 @@ var tourActuel = 1
 
 while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioche()){ // tant que les deux rois sont en vie et que l'un des deux joueurs a des cartes dans sa pioche, on continue la partie
     
-    print("Au tour du joueur1")
+    print("------------------ Au tour du joueur1 -------------------")
     // Phase de préparation ------
     for pos in champsdebataille1.position() { //carte() {   // on place toutes ses cartes en position defensive
         if (pos.carte() != nil) && (pos.carte()!.estOffensive()){
@@ -252,14 +282,16 @@ while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioc
     else {
         if action == "attaquer"{
             var continuer = true
-            print(afficher(c :champsdebataille1))
-            print(afficher(c : champsdebataille2))
+            print("Champs de bataille du joueur 1")
+            print(afficher(c : champsdebataille1)+"\n")
+            print("Champs de bataille du joueur 2")
+            print(afficher(c : champsdebataille2)+"\n")
             while continuer && joueur2{ // tant que le joueur veux attaquer on continuer la phase d'attaque. Si jamais le roi du joueur2 meurt alors la partie s'arrete
                 print("Quel est votre cible ? Ecrivez sa position")
                 let cible = saisiePosition(cdb : champsdebataille2)
                 print("Avec quel unite ? Ecrivez sa position")
                 let attaquant = saisiePosition(cdb : champsdebataille1)
-                attaquer(c : cible.carte()!, a : attaquant.carte()!, tour : tourActuel) // on attaque la cible avec l'unite demande si possible
+                attaquer(posdef : cible, posatt : attaquant, tour : tourActuel) // on attaque la cible avec l'unite demande si possible
                 if champsdebataille2.estVide(){
                     joueur2 = conscription(c : champsdebataille2, p : saisiePosition(cdb : champsdebataille2))
                 }
@@ -302,7 +334,7 @@ while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioc
     
     
     if joueur2 {
-        print("Au tour du joueur2")
+        print(" --------------------------- Au tour du joueur2 ------------------------------- ")
         // Phase de préparation ------
         for pos in champsdebataille2.position(){//carte() { // on place toutes ses cartes en position defensive
             if (pos.carte() != nil) && pos.carte()!.estOffensive(){
@@ -320,14 +352,16 @@ while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioc
         else {
             if action == "attaquer"{
                 var continuer = true
-                print(afficher(c : champsdebataille1))
-                print(afficher(c : champsdebataille2))
+                print("Champs de bataille du joueur 1")
+                print(afficher(c : champsdebataille1)+"\n")
+                print("Champs de bataille du joueur 2")
+                print(afficher(c : champsdebataille2)+"\n")
                 while continuer && joueur1{ // tant que le joueur veux attaquer on continuer la phase d'attaque
                     print("Quel est votre cible ? Ecrivez sa position")
                     let cible = saisiePosition(cdb : champsdebataille1)
                     print("Avec quel unite ? Ecrivez sa position")
                     let attaquant = saisiePosition(cdb : champsdebataille2)
-                    attaquer(c : cible.carte()!, a : attaquant.carte()!, tour : tourActuel) // on attaque la cible avec l'unite demande si possible
+                    attaquer(posdef : cible, posatt : attaquant, tour : tourActuel) // on attaque la cible avec l'unite demande si possible
                     if champsdebataille2.estVide(){
                         joueur1 = conscription(c : champsdebataille1, p : saisiePosition(cdb : champsdebataille1))
                 }

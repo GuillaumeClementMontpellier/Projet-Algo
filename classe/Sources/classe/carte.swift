@@ -200,8 +200,11 @@ public class carte : carteProtocol {
 
     // PeutAttaquer et capturer
     public func peutAttaquer(c : carte) -> Bool{
+
         if !self.estOffensive(){
+
             return false
+
         } else {
             
 	    if let pos = c.pos{
@@ -220,7 +223,7 @@ public class carte : carteProtocol {
         }
     }
     
-    public func capturerCarte(attaquant : carte){ //still to do
+    public func capturerCarte(attaquant : carte){ 
     	self.joeur = attaquant.joueur()
 
     	if let cdb = attaquant.cdb(){
