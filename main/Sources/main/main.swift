@@ -15,7 +15,7 @@ func attaquer(posdef : laposition, posatt : laposition, tour : Int) {
     if let c = posdef.carte(){// s'il y a une carte a la position de la defense
         if let a = posatt.carte(){ // s'il y a une carte a la position attaquante
             
-            if a.peutAttaquer( c : c) { // on verifie que la carte qui attaque peut bien attaquer la carte cible (vis a vis de la portee) 
+            if a.peutAttaquer(c : c) { // on verifie que la carte qui attaque peut bien attaquer la carte cible (vis a vis de la portee) 
                 a.changerMode() // la carte a est mise en position offensive pour attaquer 
                 if a.valeurAttaque() == c.valeurDefense() {
                     c.capturerCarte(attaquant : a) // la carte est capture vers le royaume de l'attaquant
@@ -53,16 +53,24 @@ func attaquer(posdef : laposition, posatt : laposition, tour : Int) {
 // Resultat : si la conscription est possible, le champs de bataille n'est plus vide sinon le joueur perd la partie
 func conscription( c : le_champs_de_bataille, p : laposition) -> Bool{
     if c.royaume().nbCarteRoyaume() != 0 { // si le royaume n'est pas vide alors on peut lui enlever un citoyen
-        c.envoyerCarte(p : p) // on enleve la carte la plus ancienne du royaume pour la mettre sur le champ de bataille 
+        var pos = p
+        while !p.estVide(){
+            print("La position choisie n'est pas vide : choisissez une autre position")
+            pos = saisiePosition(cdb : c)
+        }
+        c.envoyerCarte(p : pos) // on enleve la carte la plus ancienne du royaume pour la mettre sur le champ de bataille 
         return true
     }
     else if !(c.main.nbDeCarteMain() == 0) {
-        print("le joueur adverse doit mettre une carte sur la ligne de front") // c'est le joueur adverse qui va choisir quelle carte il pose et a quel endroit
+        print("vous devez mettre une carte sur la ligne de front") // c'est le joueur adverse qui va choisir quelle carte il pose et a quel endroit
         print(afficher(m : c.main))
         print ("Choisissez votre carte")
         let carte = saisieCarte(m : c.main)
-        print("Choisissez une position")
-        let position = saisiePosition(cdb : c)
+        var position = p
+        while !position.estVide() || position.arriere() {
+            print("La position choisie n'est pas vide : choisissez une autre position")
+            position = saisiePositionFront(cdb : c)
+        } 
         c.main.poserCarte(cdb : c, c : carte, pos : position)
         return true
     }
@@ -109,6 +117,8 @@ func saisieCarte(m : lamain) -> String {
 // fonction gerant la saisie d'une position ainsi que les erreur lié a cette saisie
 // Resultat : renvoie la position saisie et cette position est sur le front
 func saisiePositionFront(cdb : le_champs_de_bataille) -> laposition {
+    print("Champs de bataille")
+    print(afficher(c : cdb))
     print("Choisissez une position")
     var pos = readLine()
     while (pos != nil) && !(pos == "F1" || pos == "F2" || pos == "F3"){
@@ -129,6 +139,8 @@ func saisiePositionFront(cdb : le_champs_de_bataille) -> laposition {
 // fonction gerant la saisie d'une position ainsi que les erreur lié a cette saisie
 // Resultat : renvoie le nom de la position saisie
 func saisiePosition(cdb : le_champs_de_bataille) -> laposition {
+    print("Champs de bataille")
+    print(afficher(c : cdb))
     print("Choisissez une position")
     var pos = readLine()
     while !(pos == "F1" || pos == "F2" || pos == "F3" || pos == "A1" || pos == "A2" || pos == "A3"){
@@ -282,18 +294,16 @@ while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioc
     else {
         if action == "attaquer"{
             var continuer = true
-            print("Champs de bataille du joueur 1")
-            print(afficher(c : champsdebataille1)+"\n")
-            print("Champs de bataille du joueur 2")
-            print(afficher(c : champsdebataille2)+"\n")
             while continuer && joueur2{ // tant que le joueur veux attaquer on continuer la phase d'attaque. Si jamais le roi du joueur2 meurt alors la partie s'arrete
                 print("Quel est votre cible ? Ecrivez sa position")
                 let cible = saisiePosition(cdb : champsdebataille2)
-                print("Avec quel unite ? Ecrivez sa position")
+                print("Avec quelle unite ? Ecrivez sa position")
                 let attaquant = saisiePosition(cdb : champsdebataille1)
                 attaquer(posdef : cible, posatt : attaquant, tour : tourActuel) // on attaque la cible avec l'unite demande si possible
                 if champsdebataille2.estVide(){
+                    print("\nJoueur 2, votre champs de battaille est vide, faites rentrer une carte de votre royaume sur votre champs de bataille:")
                     joueur2 = conscription(c : champsdebataille2, p : saisiePosition(cdb : champsdebataille2))
+                    print("------------------------ Retour au joueur 1 ----------------------------")
                 }
                 print("Si vous voulez continuer a attaquer ecrivez true, false sinon")
                 continuer = saisieBool()
@@ -352,10 +362,6 @@ while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioc
         else {
             if action == "attaquer"{
                 var continuer = true
-                print("Champs de bataille du joueur 1")
-                print(afficher(c : champsdebataille1)+"\n")
-                print("Champs de bataille du joueur 2")
-                print(afficher(c : champsdebataille2)+"\n")
                 while continuer && joueur1{ // tant que le joueur veux attaquer on continuer la phase d'attaque
                     print("Quel est votre cible ? Ecrivez sa position")
                     let cible = saisiePosition(cdb : champsdebataille1)
@@ -363,7 +369,9 @@ while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioc
                     let attaquant = saisiePosition(cdb : champsdebataille2)
                     attaquer(posdef : cible, posatt : attaquant, tour : tourActuel) // on attaque la cible avec l'unite demande si possible
                     if champsdebataille2.estVide(){
+                        print("\nJoueur 1, votre champs de battaille est vide, faites rentrer une carte de votre royaume sur votre champs de bataille:")
                         joueur1 = conscription(c : champsdebataille1, p : saisiePosition(cdb : champsdebataille1))
+                        print("------------------- Retour au joueur 2 -------------------")
                 }
                 print("Si vous voulez continuer a attaquer ecrivez true, false sinon")
                 continuer = saisieBool()

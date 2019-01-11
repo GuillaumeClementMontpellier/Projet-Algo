@@ -46,6 +46,7 @@ public class lamain : mainProtocol {
                 for p in cdb.champ {
                     if p === pos && b{
                         self.liste[i].cddb = cdb
+                        self.liste[i].pos = p
                         p.cartee = self.liste[i]
                         self.liste.remove(at : i)
                         b = false

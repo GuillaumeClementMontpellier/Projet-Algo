@@ -75,6 +75,7 @@ public class carte : carteProtocol {
                 switch self.role {
                     
                 case "Roi":
+                    
                     if pos.arriere(){
                         if self.joeur == 1{
                             if pos.nom() == "A1" {
@@ -99,25 +100,30 @@ public class carte : carteProtocol {
                             }
                         }
                     }
+                    
                 case "Archer":
-                    switch pos.nom() {
-                    case "F1":
-                        rep.append("A2")
-                        rep.append("F3")
-                    case "F2":
-                        rep.append("A1")
-                        rep.append("A3")
-                    case "F3":
-                        rep.append("F1")
-                        rep.append("A2")
-                    case "A2":
-                        rep.append("F1")
-                        rep.append("F3")
-                    default: // A1 ou A3 (même chose)
-                        rep.append("F2")
+                    do {
+                        
+                        switch pos.nom() {
+                        case "F1":
+                            rep.append("A2")
+                            rep.append("F3")
+                        case "F2":
+                            rep.append("A1")
+                            rep.append("A3")
+                        case "F3":
+                            rep.append("F1")
+                            rep.append("A2")
+                        case "A2":
+                            rep.append("F1")
+                            rep.append("F3")
+                        default: // A1 ou A3 (même chose)
+                            rep.append("F2")
+                        }
                     }
                     
-                default: // soldat ou Garde
+                default: // Soldat ou Garde
+                    
                     if pos.front(){
                         if pos.nom() == "F1"{
                             rep.append("F1")
@@ -126,7 +132,7 @@ public class carte : carteProtocol {
                         } else { // en F3
                             rep.append("F3")
                         }
-                    }    
+                    }   
                 }
             }
             return rep
@@ -201,7 +207,7 @@ public class carte : carteProtocol {
     // PeutAttaquer et capturer
     public func peutAttaquer(c : carte) -> Bool{
 
-        if !self.estOffensive(){
+        if self.estOffensive(){
 
             return false
 
