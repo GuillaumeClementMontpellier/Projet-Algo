@@ -3,6 +3,7 @@ import classe
 
 // ------------------------- fonction utile pour le programme principal --------------------------
 
+// PROBLEMES : la partie ne s'arrete pas si un roi meurt ou s'il n'y a plus de pioche !! 
 
 // attaquer : Carte x Carte x Int ->
 // fonction executant l'ordre d'attaque emit par le joueur si celle si est possible(respectant les regles du jeu)
@@ -15,7 +16,8 @@ func attaquer(posdef : laposition, posatt : laposition, tour : Int) {
     if let c = posdef.carte(){// s'il y a une carte a la position de la defense
         if let a = posatt.carte(){ // s'il y a une carte a la position attaquante
             
-            if a.peutAttaquer(c : c) { // on verifie que la carte qui attaque peut bien attaquer la carte cible (vis a vis de la portee) 
+            if a.peutAttaquer(c : c) { // on verifie que la carte qui attaque peut bien attaquer la carte cible (vis a vis de la portee)
+                print("L'attaque reussi")
                 a.changerMode() // la carte a est mise en position offensive pour attaquer 
                 if a.valeurAttaque() == c.valeurDefense() {
                     c.capturerCarte(attaquant : a) // la carte est capture vers le royaume de l'attaquant
@@ -34,7 +36,12 @@ func attaquer(posdef : laposition, posatt : laposition, tour : Int) {
                 }
             }
             else {
-                print("Pas d'attaque, la carte defensive n'est pas a portée de la carte attaquante")
+                if a.estOffensive(){
+                    print("Pas d'attaque, la carte attaquante a deja attaqué")
+                }
+                else {
+                    print("Pas d'attaque, la carte attaquante ne peut pas attaquer la carte defensive (porté)")
+                }
             }
         }
         else{
@@ -284,6 +291,8 @@ while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioc
         }
     }
     pioche1.piocher(lieu : main1, nb : 1)
+    print("Vous piochez : votre main :")
+    print(afficher(m : main1))
     
     // Phase d'action ---------
     print(" Quelle action voulez vous faire : ne rien faire, deployer une unite ou attaquer")
@@ -352,6 +361,8 @@ while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioc
             }
         }
         pioche2.piocher(lieu : main2, nb : 1)
+    print("Vous piochez : votre main :")
+    print(afficher(m : main2))
         
         // Phase d'action ---------
         print(" Quelle action voulez vous faire : ne rien faire, deployer une unite ou attaquer")
