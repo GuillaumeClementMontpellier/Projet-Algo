@@ -1,5 +1,5 @@
 
-import class
+import classe
 
 import Foundation
 
@@ -25,34 +25,29 @@ public func testPiocher(p : Pioche, n : Int){
 
 // test fonction estVidePioche : 
 public func testestVidePioche (p : Pioche){
-    print ("test estVidePioche()")
+    print("test estVidePioche()")
     if nbCartePioche (p) == 0 {
         if estVidePioche(p){
-            print ("la fonction estVidePioche() fonctionne")
+            print("la fonction estVidePioche() fonctionne")
         }
         else {
-            print ("Erreur : la fonction estVidePioche() ne fonctionne pas")
+            print("Erreur : la fonction estVidePioche() ne fonctionne pas")
     }
 }
 }
 
 // test fonction nbCartePioche : 
 public func testnbCartePioche (p: Pioche){
-    print ("test nbCartePioche()")
+    print("test nbCartePioche()")
     cpt = 0
     for  i in p {
         cpt += 1
     }
     if cpt == nbCartePioche(p){
-        print ("la fonction nbCartePioche() fonctionne correctement ")
+        print("la fonction nbCartePioche() fonctionne correctement ")
     }
     else {
-            print("Erreur : la fonction nbCartePioche()")
+        print("Erreur : la fonction nbCartePioche()")
     }
 }
 
-var pio : Pioche = Pioche()
-
-testPiocher(p : pio, n : 1)
-testestVidePioche (p : pio)
-testnbCartePioche (p: pio)

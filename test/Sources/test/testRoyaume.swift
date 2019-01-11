@@ -1,21 +1,21 @@
 //: Playground - noun: a place where people can play
 
-import class
+import classe
 
 import Foundation
 
 // test fonction nbCarteRoyaume 
 
 public func testnbCarteRoyaume (r : Royaume) {
-    print ("test nbCarteRoyaume()")
+    print("test nbCarteRoyaume()")
     cpt = 0
     for i in r {
         cpt += 1
         if cpt == nbCarteRoyaume (r){
-            print ("la fonction nbCarteRoyaume() fonctionne correctement")
+            print("la fonction nbCarteRoyaume() fonctionne correctement")
         }
         else {
-            print ("Erreur : la fonction nbCarteRoyaume() ne fonctionne pas")
+            print("Erreur : la fonction nbCarteRoyaume() ne fonctionne pas")
         }
     }
 }
@@ -55,7 +55,7 @@ public func testenvoyerCarte (r : Royaume, c : String, m : Main){ // test pour v
 // test fonction decrireRoyaume : 
 
 public func testdecrireRoyaume (r : royaume){
-    print ("test decrireRoyaume()")
+    print("test decrireRoyaume()")
     var tab1 : [Carte]
     var tab2 : [Carte] = decrireRoyaume(r)
     for i in r {
@@ -63,10 +63,10 @@ public func testdecrireRoyaume (r : royaume){
     }
     for j in range (count.tab){
         if tab1[i] != tab2[i]{
-            print ("Erreur : la fonction decrireRoyaume() ne décrit pas le royaume comme il faut")
+            print("Erreur : la fonction decrireRoyaume() ne décrit pas le royaume comme il faut")
         }
         else {
-            print ("la fonction decrireRoyaume() fonctionne correctement")
+            print("la fonction decrireRoyaume() fonctionne correctement")
         }
     }
 }
@@ -74,29 +74,29 @@ public func testdecrireRoyaume (r : royaume){
 // test fonction retirerRoyaume : 
 
 public func testretirerRoyaume ( r : Royaume, c : Carte) {
-    print ("test retirerRoyaume()")
+    print("test retirerRoyaume()")
     var avtab : [Carte] = decrireRoyaume(r : r)
     var r1 : Royaume = retirerRoyaume(c : c)
     var aptab : [Carte] = decrireRoyaume(r : r1)
     if count.avtab == count.aptab+1 {
-        print ("La fonction retirerRoyaume() enlève bien une carte dans le royaume")
+        print("La fonction retirerRoyaume() enlève bien une carte dans le royaume")
     }
     else {
-        print ("Erreur : la fonction retirerRoyaume() ne fonctionne pas")
+        print("Erreur : la fonction retirerRoyaume() ne fonctionne pas")
     }
 }
 
 // test fonction estDansRoyaume : 
 
 public func testestDansRoyaume (r : Royaume, c : Carte){
-    print ("test estDansRoyaume()")
+    print("test estDansRoyaume()")
     var tab : [Carte] = decrireRoyaume(r : r)
     for i in tab {
         if i == estDansRoyaume(c : c){
-            print ("la fonction estDansRoyaume() permet bien de vérifier si une carte est dans le royaume")
+            print("la fonction estDansRoyaume() permet bien de vérifier si une carte est dans le royaume")
         }
         else {
-            print ("Erreur : la fonction estDansRoyaume() ne fonctionne pas")
+            print("Erreur : la fonction estDansRoyaume() ne fonctionne pas")
         }
     }
 }
@@ -105,45 +105,27 @@ public func testestDansRoyaume (r : Royaume, c : Carte){
 // test fonction derniereCarte :
 
 public func testderniereCarte (r : Royaume) {
-    print ("test derniereCarte()")
+    print("test derniereCarte()")
     var tab : [Carte] = decrireRoyaume(r : r)
     var n : Int = count.tab
     if tab[n] == derniereCarte(){
-        print ("La fonction derniereCarte() renvoit bien la derniere carte presente dans le royaume")
+        print("La fonction derniereCarte() renvoit bien la derniere carte presente dans le royaume")
     }
     else {
-        print ( "Erreur : la fonction derniereCarte() ne fonctionne pas")
+        print( "Erreur : la fonction derniereCarte() ne fonctionne pas")
     }
 }
 
 // test fonction premiereCarte :
 
 public func testpremiereCarte (r : Royaume) {
-    print ("test premiereCarte()")
+    print("test premiereCarte()")
     var tab : [Carte] = decrireRoyaume(r : r)
     if tab[0] == derniereCarte(){
-        print ("La fonction premiereCarte() renvoit bien la premiere carte presente dans le royaume")
+        print("La fonction premiereCarte() renvoit bien la premiere carte presente dans le royaume")
     }
     else {
-        print ( "Erreur : la fonction premiereCarte() ne fonctionne pas")
+        print( "Erreur : la fonction premiereCarte() ne fonctionne pas")
     }
 }
-
-
-var main : Main = Main(num : 1)
-var cdb : Champsdebataille = Champsdebataille ()
-var posf : Position = Position(nom : "F1")
-var posa : Position = Position(nom : "A1")
-var c : Carte = Carte(role : r, joueur : j)
-var roy : Royaume = Royaume()
-
-
-
-testnbCarteRoyaume (r : Royaume)
-testenvoyerCarte (r : roy, c : "Roi1", m : main)
-envoyerCarte(r : roy, c : "Roi1", m : main)
-testdecrireRoyaume (r : roy)
-testestDansRoyaume (r : roy, c : c)
-testderniereCarte (r : roy)
-testpremiereCarte (r : roy)
 

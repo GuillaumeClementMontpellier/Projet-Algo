@@ -1,19 +1,19 @@
 // test Position 
 
-import class
+import classe
 
 import Foundation
 
 // test fonction estVide :
 
 public func testestVide(p : Position){
-	print ("test estVide()")
+	print("test estVide()")
 	var cdb : Champsdebataille
 	if p.estVide() == cdb.estVidePosition (p : p) {
-		print ("La fonction renvoit bien True si la position rentrée en paramètre est vide")
+		print("La fonction renvoit bien True si la position rentrée en paramètre est vide")
 	}
 	else {
-		print ("Erreur : la fonction ")
+		print("Erreur : la fonction ")
 	}
 }
 
@@ -27,10 +27,10 @@ public func testnom(p : Position){
 			cpt = 0
 		}
 		if cpt == 0 {
-			print ("La fonction permet bien de renvoyer le bom de la position prise en paramètre sous forme de string")			
+			print("La fonction permet bien de renvoyer le bom de la position prise en paramètre sous forme de string")			
 		}
 		else {
-			print ("Erreur : la fonction ne renvoit pas la position prise en paramètre sous forme de String")
+			print("Erreur : la fonction ne renvoit pas la position prise en paramètre sous forme de String")
 		}
 	}
 }
@@ -41,10 +41,10 @@ public func testFront (p : Position){
 	print("test front()")
 	if p.front(){
 		if (p.nom() == "F1" || p.nom() == "F2" || p.nom() == "F3") {
-			print (" La fonction front() vérifie bien que la position prise en paramètre est située sur le front du champs de bataille")
+			print(" La fonction front() vérifie bien que la position prise en paramètre est située sur le front du champs de bataille")
 		}
 		else {
-			print (" Erreur : la fonction renvoit true même si la position n'est pas sur la ligne de front")
+			print(" Erreur : la fonction renvoit true même si la position n'est pas sur la ligne de front")
 		}
 	}
 } 
@@ -54,28 +54,15 @@ public func testArriere (p : Position){
 	print("test arriere()")
 	if p.arriere(){
 		if (p.nom() == "A1" || p.nom() == "A2" || p.nom() == "A3") {
-			print (" La fonction arriere() vérifie bien que la position prise en paramètre est située à l'arriere du champs de bataille")
+			print(" La fonction arriere() vérifie bien que la position prise en paramètre est située à l'arriere du champs de bataille")
 		}
 		else {
-			print (" Erreur : la fonction renvoit true même si la position n'est pas sur la ligne arriere")
+			print(" Erreur : la fonction renvoit true même si la position n'est pas sur la ligne arriere")
 		}
 	}
 }
 
 
-
-
-var posf = Position(nom : "F1")
-var posa = Position(nom : "A1")
-
-
-
-testestVide(p : posa)
-testnom(p : posa)
-testFront(p : posa)
-testFront(p : posf)
-testArriere(p : posa)
-testArriere(p : posf)
 
 
 

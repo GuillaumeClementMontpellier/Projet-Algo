@@ -1,5 +1,5 @@
 import XCTest
-import class Foundation.Bundle
+import classe Foundation.Bundle
 
 final class testTests: XCTestCase {
     func testExample() throws {
