@@ -9,10 +9,12 @@ import classe
 // fonction executant l'ordre d'attaque emit par le joueur si celle si est possible(respectant les regles du jeu)
 // Pre : a et c doit etre de type Carte
 // Resultat : si l'attaque était possible, soit la carte a été detruite, soit elle a été capturée soit des points de dégats on été enregistré pour cette carte (pour le tour actuel)
+// renvoie false si le joueur defenseur perd la partie (si son roi meurt)
 
-func attaquer(posdef : laposition, posatt : laposition, tour : Int) {
+func attaquer(posdef : laposition, posatt : laposition, tour : Int) -> Bool {
     let cdba = posdef.cdb()
 
+    let res : Bool = true
     if let c = posdef.carte(){// s'il y a une carte a la position de la defense
         if let a = posatt.carte(){ // s'il y a une carte a la position attaquante
             
@@ -20,17 +22,26 @@ func attaquer(posdef : laposition, posatt : laposition, tour : Int) {
                 print("L'attaque reussi")
                 a.changerMode() // la carte a est mise en position offensive pour attaquer 
                 if a.valeurAttaque() == c.valeurDefense() {
+                    if c.role() == "Roi"{
+                    	res = false
+                    }
                     c.capturerCarte(attaquant : a) // la carte est capture vers le royaume de l'attaquant
                     cdba.avancerCarte(p : posdef) // avance la carte de deriere si la carte capturée est sur le front et si il y a une carte deriere celle-ci
                 }
                 
                 else if  a.valeurAttaque() > c.valeurDefense(){
+                    if c.role() == "Roi"{
+                    	res = false
+                    }
                     cdba.cimetiere(c : c) // la carte est detruite, elle est donc envoye vers le cimetiere
                     cdba.avancerCarte(p : posdef) // avance la carte de deriere si la carte tuée est sur le front et si il y a une carte deriere celle-ci
                 }
                 else {
                     c.ajoutPointDegat(d : a.valeurAttaque(), t : tour) // on enregistre les points de degats pour le tour actuel
                     if c.pointDegat(t : tour) > c.valeurDefense() {
+                        if c.role() == "Roi"{
+                    		res = false
+                    	}
                         cdba.cimetiere(c : c) // la carte est detruite, elle est donc envoye vers le cimetiere
                     }
                 }
@@ -51,33 +62,30 @@ func attaquer(posdef : laposition, posatt : laposition, tour : Int) {
     else {
         print("Pas d'attaque, la position de defense est vide")
     }
+
+    return res
 }
 
 
 // conscription : champsDeBataille -> Bool
 // fonction executant une conscrition si le champs de bataille d'un joueur est vide si cette conscription est possible
-// Pre : c doit etre de type champsDeBataille
+// Pre : c doit etre de type champsDeBataille, c est vide
 // Resultat : si la conscription est possible, le champs de bataille n'est plus vide sinon le joueur perd la partie
+
 func conscription( c : le_champs_de_bataille, p : laposition) -> Bool{
     if c.royaume().nbCarteRoyaume() != 0 { // si le royaume n'est pas vide alors on peut lui enlever un citoyen
-        var pos = p
-        while !p.estVide(){
-            print("La position choisie n'est pas vide : choisissez une autre position")
-            pos = saisiePosition(cdb : c)
-        }
-        c.envoyerCarte(p : pos) // on enleve la carte la plus ancienne du royaume pour la mettre sur le champ de bataille 
+        c.envoyerCarte(p : p) // on enleve la carte la plus ancienne du royaume pour la mettre sur le champ de bataille 
         return true
     }
     else if !(c.main.nbDeCarteMain() == 0) {
-        print("vous devez mettre une carte sur la ligne de front") // c'est le joueur adverse qui va choisir quelle carte il pose et a quel endroit
-        print(afficher(m : c.main))
-        print ("Choisissez votre carte")
+        print("vous devez mettre une carte sur la ligne de front") // c'est le joueur qui va choisir quelle carte il pose et a quel endroit
+        print ("Voici votre main")
         let carte = saisieCarte(m : c.main)
         var position = p
-        while !position.estVide() || position.arriere() {
-            print("La position choisie n'est pas vide : choisissez une autre position")
+        while position.arriere() {
+            print("La position choisie n'est pas au Front : choissisez une autre position")
             position = saisiePositionFront(cdb : c)
-        } 
+        } // la position est 
         c.main.poserCarte(cdb : c, c : carte, pos : position)
         return true
     }
@@ -97,7 +105,7 @@ func saisieCarte(m : lamain) -> String {
     var erreurSaisie = false // servira pour les gerer les ereur de saisie des joueurs
     var bonneSaisie = false // servira pour les gerer les ereur de saisie des joueurs
     while !erreurSaisie { // tant que la saisie n'est pas de un role d'une carte que le joueur possede on redemande une saisie
-        if (carte == nil) && !(carte == "Archer" || carte == "Garde" || carte == "Soldat" || carte == "Roi") {
+        if (carte == nil) || !(carte == "Archer" || carte == "Garde" || carte == "Soldat" || carte == "Roi") {
             print("la carte saisie n'existe pas, veuillez saisir a nouveau")
             carte = readLine()
             bonneSaisie = false
@@ -280,7 +288,6 @@ var tourActuel = 1
 
 //------------------ ENCHAINEMENT DES TOURS DE JEUX --------------------
 
-
 while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioche()){ // tant que les deux rois sont en vie et que l'un des deux joueurs a des cartes dans sa pioche, on continue la partie
     
     print("------------------ Au tour du joueur1 -------------------")
@@ -308,8 +315,8 @@ while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioc
                 let cible = saisiePosition(cdb : champsdebataille2)
                 print("Avec quelle unite ? Ecrivez sa position")
                 let attaquant = saisiePosition(cdb : champsdebataille1)
-                attaquer(posdef : cible, posatt : attaquant, tour : tourActuel) // on attaque la cible avec l'unite demande si possible
-                if champsdebataille2.estVide(){
+                joueur2 = attaquer(posdef : cible, posatt : attaquant, tour : tourActuel) // on attaque la cible avec l'unite demande si possible
+                if champsdebataille2.estVide() && joueur2{
                     print("\nJoueur 2, votre champs de battaille est vide, faites rentrer une carte de votre royaume sur votre champs de bataille:")
                     joueur2 = conscription(c : champsdebataille2, p : saisiePosition(cdb : champsdebataille2))
                     print("------------------------ Retour au joueur 1 ----------------------------")
@@ -318,7 +325,7 @@ while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioc
                 continuer = saisieBool()
             }
         }
-        else {
+        else { // deployer une unite
             print("Selectionner une carte a mettre sur le champ de bataille")
             let carte = saisieCarte(m : main1)
             print("Choisissez une position")
@@ -328,7 +335,7 @@ while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioc
     }
     
     // Phase de developpement --------
-    if joueur2 {  // si le roi du joueur2 a été tuer, pas la peine de faire une phase de developpement
+    if joueur2 {  // si le joueur 2 a perdu, pas la peine de faire une phase de developpement
         if main1.nbDeCarteMain() > 5 {
             print("Vous devez envoyer une carte au royaume, laquelle choisisez vous :")
             carte = saisieCarte(m : main1)
@@ -352,7 +359,8 @@ while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioc
     
     
     
-    if joueur2 {
+    if joueur2 { // si le joueur 2 n'a pas perdu (un joueur ne peut pas perdre pendant son tour)
+
         print(" --------------------------- Au tour du joueur2 ------------------------------- ")
         // Phase de préparation ------
         for pos in champsdebataille2.position(){//carte() { // on place toutes ses cartes en position defensive
@@ -361,8 +369,8 @@ while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioc
             }
         }
         pioche2.piocher(lieu : main2, nb : 1)
-    print("Vous piochez : votre main :")
-    print(afficher(m : main2))
+    	print("Vous piochez : votre main :")
+    	print(afficher(m : main2))
         
         // Phase d'action ---------
         print(" Quelle action voulez vous faire : ne rien faire, deployer une unite ou attaquer")
@@ -378,7 +386,7 @@ while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioc
                     let cible = saisiePosition(cdb : champsdebataille1)
                     print("Avec quel unite ? Ecrivez sa position")
                     let attaquant = saisiePosition(cdb : champsdebataille2)
-                    attaquer(posdef : cible, posatt : attaquant, tour : tourActuel) // on attaque la cible avec l'unite demande si possible
+                    joueur1 = attaquer(posdef : cible, posatt : attaquant, tour : tourActuel) // on attaque la cible avec l'unite demande si possible
                     if champsdebataille2.estVide(){
                         print("\nJoueur 1, votre champs de battaille est vide, faites rentrer une carte de votre royaume sur votre champs de bataille:")
                         joueur1 = conscription(c : champsdebataille1, p : saisiePosition(cdb : champsdebataille1))
@@ -388,7 +396,7 @@ while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioc
                 continuer = saisieBool()
                 }
             }
-            else {
+            else { // deployer une unite
                 print("Selectionner une carte a mettre sur le champ de bataille")
                 let carte = saisieCarte(m : main2)
                 print("Choisissez une position")
@@ -416,7 +424,8 @@ while (joueur1 && joueur2) && (!pioche1.estVidePioche()  || !pioche2.estVidePioc
         
     }
     tourActuel += 1    
-}
+
+} // arret : un joueur a perdu OU les 2 pioches sont vides
 
 
 
