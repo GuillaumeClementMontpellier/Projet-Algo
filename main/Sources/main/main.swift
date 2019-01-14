@@ -14,7 +14,7 @@ import classe
 func attaquer(posdef : laposition, posatt : laposition, tour : Int) -> Bool {
     let cdba = posdef.cdb()
 
-    let res : Bool = true
+    var res : Bool = true
     if let c = posdef.carte(){// s'il y a une carte a la position de la defense
         if let a = posatt.carte(){ // s'il y a une carte a la position attaquante
             
@@ -22,7 +22,7 @@ func attaquer(posdef : laposition, posatt : laposition, tour : Int) -> Bool {
                 print("L'attaque reussi")
                 a.changerMode() // la carte a est mise en position offensive pour attaquer 
                 if a.valeurAttaque() == c.valeurDefense() {
-                    if c.role() == "Roi"{
+                    if c.roleCarte() == "Roi"{
                     	res = false
                     }
                     c.capturerCarte(attaquant : a) // la carte est capture vers le royaume de l'attaquant
@@ -30,7 +30,7 @@ func attaquer(posdef : laposition, posatt : laposition, tour : Int) -> Bool {
                 }
                 
                 else if  a.valeurAttaque() > c.valeurDefense(){
-                    if c.role() == "Roi"{
+                    if c.roleCarte() == "Roi"{
                     	res = false
                     }
                     cdba.cimetiere(c : c) // la carte est detruite, elle est donc envoye vers le cimetiere
@@ -39,7 +39,7 @@ func attaquer(posdef : laposition, posatt : laposition, tour : Int) -> Bool {
                 else {
                     c.ajoutPointDegat(d : a.valeurAttaque(), t : tour) // on enregistre les points de degats pour le tour actuel
                     if c.pointDegat(t : tour) > c.valeurDefense() {
-                        if c.role() == "Roi"{
+                        if c.roleCarte() == "Roi"{
                     		res = false
                     	}
                         cdba.cimetiere(c : c) // la carte est detruite, elle est donc envoye vers le cimetiere
